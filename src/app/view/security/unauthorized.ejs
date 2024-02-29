@@ -5,21 +5,20 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
+    <title>Unauthorized</title>
 
+    <link rel="stylesheet" href="/assets/css/unauthorized.css">
     <link rel="stylesheet" href="/assets/css/not-found.css">
 </head>
 <body>
-<div class="section">
-    <h1 class="error">404</h1>
-    <div class="page">Ooops!!! The page you are looking for is not found</div>
-    <a class="back-home" id="btn_back">Turn Back</a>
+<div class="lock"></div>
+<div class="message">
+    <h1>Access to this page is restricted</h1>
+    <p>Please check with the site admin if you believe this is a mistake.</p>
+    <a class="back-home" href="/security/sign-in" style="margin-top: 3rem;">Login</a>
 </div>
 </body>
-</html>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-    $('#btn_back').click(function (){
-        history.back()
-    })
 </script>
+</html>

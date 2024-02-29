@@ -3,11 +3,14 @@ const StudentRouter = require('./StudentRouter')
 const MarketingManagerRouter = require('./MarketingManagerRouter')
 const AdminRouter = require('./AdminRouter')
 const ClientRouter = require('./ClientRouter')
+const SecurityRouter = require('./SecurityRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
 
 module.exports = (app) => {
+    app.use('/security', SecurityRouter)
+
     app.use(
         '/student',
         (req, res, next) => Auth.Authorize(req, res, next,[STUDENT, ADMIN]),
