@@ -33,6 +33,12 @@ const DateUtil = {
         let current_date = new Date()
         let date = new Date(date_string)
         return date.getTime() < current_date.getTime();
+    },
+    IsPassedDateAfterDay(date_string, day){
+        let current_date = new Date()
+        let date_start = new Date(date_string)
+        date_start.setDate(date_start.getDate() + day)
+        return date_start.getTime() > current_date.getTime();
     }
 }
 

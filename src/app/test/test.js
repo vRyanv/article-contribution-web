@@ -13,10 +13,16 @@
 //     }
 // })
 
-const DateUtil = require('../utils/DateUtil')
-
-let a = '03-10-2024'
-let b =  '02-20-2024'
-
-console.log(a > b)
+// const DateUtil = require('../utils/DateUtil')
+//
+// let a = '03-10-2024'
+// let b =  '02-20-2024'
+//
+// console.log(a > b)
 // console.log(DateUtil.ConvertDate(b, 'MM-dd-yyyy'))
+const {DateUtil} = require('../utils')
+
+const passed = DateUtil.IsPassedDateAfterDay('3-4-2024', 4)
+
+console.log(passed)
+
