@@ -2,6 +2,9 @@ const {MagazineRepository} = require('../repository')
 const {DateUtil} = require("../utils");
 
 const MagazineService = {
+    GetContributeOfFaculty(){
+
+    },
     Create(req) {
         const magazine = {
             ...
@@ -13,8 +16,13 @@ const MagazineService = {
             return null
         }
     },
-    GetMagazineList() {
-        return MagazineRepository.GetMagazineList()
+    async GetMagazineList() {
+        const magazine_list = await MagazineRepository.GetMagazineList()
+        magazine_list.map(magazine =>{
+            magazine.is_closure = DateUtil.IsPassedDate(magazine.closure_date)
+            magazine.is_final_closure = DateUtil.IsPassedDate(magazine.final_closure_date)
+        })
+        return magazine_list
     },
     GetMagazineById(req) {
         const magazine_id = req.params.magazine_id
@@ -43,7 +51,7 @@ const MagazineService = {
             return false
         }
     },
-    async GetMagazineStudentDetail(req) {
+    async GetMagazineDetail(req) {
         const {magazine_id} = req.params
         let magazine
         try{

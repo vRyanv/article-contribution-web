@@ -15,7 +15,7 @@ const MagazineStudentController = {
         )
     },
     async DetailMagazine(req, res) {
-        const magazine = await MagazineService.GetMagazineStudentDetail(req)
+        const magazine = await MagazineService.GetMagazineDetail(req)
 
         if (!magazine) {
             return res.render(
