@@ -1,0 +1,25 @@
+<% comment_list.map(comment => { %>
+    <div class="testimonial-box">
+        <div class="box-top">
+            <div class="profile">
+                <div class="profile-img">
+                    <img src="/my-assets/media/images/avatar/<%= comment.user.avatar %>"/>
+                </div>
+                <div class="name-user">
+                    <strong><%= comment.user.full_name %></strong>
+                    <%
+                        let date = [
+                            comment.createdAt.getMonth() + 1,
+                            comment.createdAt.getDate(),
+                            comment.createdAt.getFullYear()
+                        ].join('-')
+                    %>
+                    <span> <%= date %>  </span>
+                </div>
+            </div>
+        </div>
+        <div class="client-comment">
+            <p><%= comment.content %></p>
+        </div>
+    </div>
+<% }) %>

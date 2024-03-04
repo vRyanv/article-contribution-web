@@ -1,0 +1,4 @@
+module.exports = {
+    IS_CLOSURE_DATE: 'IS_CLOSURE_DATE',
+    IS_FINAL_CLOSURE_DATE: 'IS_FINAL_CLOSURE_DATE',
+}

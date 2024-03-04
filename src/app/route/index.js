@@ -1,9 +1,10 @@
 const CoordinatorRouter = require('./CoordinatorRouter')
-const StudentRouter = require('./StudentRouter')
+const StudentRouter = require('./student')
 const MarketingManagerRouter = require('./MarketingManagerRouter')
-const AdminRouter = require('./AdminRouter')
+const AdminRouter = require('./admin')
 const ClientRouter = require('./ClientRouter')
 const SecurityRouter = require('./SecurityRouter')
+const CommentRouter = require('./CommentRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
@@ -13,18 +14,18 @@ module.exports = (app) => {
 
     app.use(
         '/student',
-        (req, res, next) => Auth.Authorize(req, res, next,[STUDENT, ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next,[STUDENT]),
         StudentRouter
     )
     app.use(
         '/coordinator',
-        (req, res, next) => Auth.Authorize(req, res, next,[COORDINATOR, ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next,[COORDINATOR]),
         CoordinatorRouter
     )
 
     app.use(
         '/marketing-manager',
-        (req, res, next) => Auth.Authorize(req, res, next,[MARKETING_MANAGER, ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next,[MARKETING_MANAGER]),
         MarketingManagerRouter
     )
 
@@ -32,6 +33,12 @@ module.exports = (app) => {
         '/admin',
         (req, res, next) => Auth.Authorize(req, res, next,[ADMIN]),
         AdminRouter
+    )
+
+    app.use(
+        '/comment',
+        (req, res, next) => Auth.Authorize(req, res, next,[STUDENT, COORDINATOR]),
+        CommentRouter
     )
 
     app.use('/', ClientRouter)

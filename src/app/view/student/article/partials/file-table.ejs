@@ -1,0 +1,36 @@
+<table class="table table-hover" style="text-align: center;">
+    <thead>
+    <tr>
+        <th scope="col">Type</th>
+        <th scope="col">File Name</th>
+        <th scope="col">Size</th>
+        <th scope="col" <%= hidden_final %>>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+    function humanFileSize(size) {
+        var i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+        return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+    }
+    %>
+    <% files.map((file) => { %>
+        <tr>
+            <td>
+                <img style="max-width: 2rem"
+                     src="/my-assets/media/decoration/word.svg"
+                     alt="thumbnail">
+            </td>
+            <td class="text-truncate" style="max-width: 150px;" title="<%= file.filename %>">
+                <%= file.filename %>
+            </td>
+            <td><%= humanFileSize(file.size) %></td>
+            <td <%= hidden_final %>>
+                <button class="btn btn-danger btn-delete-article-file" data-file-name="<%= file.filename %>">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>

@@ -1,0 +1,77 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="container-fluid bg-white pt-4 px-4 shadow rounded"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="row g-4">
+                    <div class="col-sm-9 col-xl-9">
+                        <h6>Account Information</h6>
+                    </div>
+                    <div class="col-sm-2 col-xl-2" style="text-align: end;margin: 1rem;">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid pt-4 px-4" style="padding-right: 0!important;padding-left: 0!important;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <h6>Individual Information</h6>
+                            <label for="email" class="col-form-label title-field">Email</label>
+                            <p><%= data.account.email %></p>
+
+                            <label for="full_name" class="col-form-label title-field mt-3">Full Name</label>
+                            <p><%= data.account.full_name %></p>
+
+                            <label for="gender" class="col-form-label title-field mt-3">Gender</label>
+                            <p><%= data.account.gender %></p>
+
+                            <label for="birth_date" class="col-form-label title-field mt-3">Birth Date</label>
+                            <p><%= data.account.birth_date %></p>
+
+                            <label for="phone" class="col-form-label title-field mt-3">Phone</label>
+                            <p><%= data.account.phone %></p>
+
+                            <label class="col-form-label title-field mt-3">Avatar</label>
+                            <img class="img-thumbnail d-block account-avatar"
+                                 src="/my-assets/media/images/avatar/<%= data.account.avatar %>" alt="" width="30%">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <h6>Academic Information</h6>
+                            <label for="role" class="col-form-label title-field">Role</label>
+                            <p><%= data.account.role %></p>
+
+                            <label for="faculty" class="col-form-label mt-3 title-field">Faculty</label>
+                            <p><%= data.account.faculty.name %></p>
+
+                            <label for="start_year" class="col-form-label mt-3 title-field">Start Year</label>
+                            <p><%= data.account.start_year %></p>
+
+                            <label for="end_year" class="col-form-label mt-3 title-field">End Year</label>
+                            <p><%= data.account.end_year %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../partials/view-image-larger-modal') %>
+
+<%- contentFor('script') %>
+<script>
+    //view avatar larger
+    $('.account-avatar').click(function () {
+        $('#large_image').attr('src', $(this).attr('src'))
+        $('#btn_open_view_image_larger_modal').click()
+    })
+</script>
+
+<%- contentFor('style') %>
+<style>
+    .account-avatar:hover {
+        cursor: zoom-in;
+    }
+</style>
+

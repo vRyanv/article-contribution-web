@@ -1,0 +1,83 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="container-fluid bg-white pt-4 px-4 shadow rounded"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="row g-4">
+                    <div class="col-sm-9 col-xl-9">
+                        <h6>Article Table</h6>
+                    </div>
+                    <div class="col-sm-2 col-xl-2" style="text-align: end;margin: 1rem;">
+                        <a href="account/new">
+                            <button class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>New</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow rounded h-100 p-4 mt-3">
+                <%- include('./partials/account-table', {account_list: data.account_list}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../partials/view-image-larger-modal') %>
+
+<%- contentFor('script') %>
+<script>
+    $('.btn-detail-account').click(function () {
+        const account_id = $(this).data('account-id')
+        location.href = `/admin/account/detail/${account_id}`
+    })
+
+    $('.btn-edit-account').click(function () {
+        const account_id = $(this).data('account-id')
+        location.href = `/admin/account/edit/${account_id}`
+    })
+
+    let account_id_delete = 0
+    $('.btn-delete-account').click(function () {
+        account_id_delete = $(this).data('account-id')
+        $('#btn_open_confirm_modal').click()
+    })
+
+    $('#btn_ok_confirm').click(function () {
+        $('#btn_close_confirm_modal').click()
+        $.ajax({
+            url: '/admin/account/delete',
+            type: 'delete',
+            data: {account_id: account_id_delete},
+            dataType: 'json',
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 203) {
+                        location.href = '/admin/account'
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: (error) => {
+                setTimeout(() => {
+                    Alert.Show('danger', 'Something went wrong!')
+                    Loading(false)
+                }, 1500)
+            }
+        })
+    })
+
+    //view avatar larger
+    $('.account-avatar').click(function () {
+        $('#large_image').attr('src', $(this).attr('src'))
+        $('#btn_open_view_image_larger_modal').click()
+    })
+</script>
+
+<%- contentFor('style') %>
+<style>
+    .account-avatar:hover{
+        cursor: zoom-in;
+    }
+</style>
+

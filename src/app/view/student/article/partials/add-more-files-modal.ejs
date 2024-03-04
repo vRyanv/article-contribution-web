@@ -1,0 +1,24 @@
+<button type="button" hidden class="btn btn-primary" id="btn_open_article_files_modal" data-toggle="modal"
+        data-target="#article_files_modal">
+</button>
+<div class="modal fade" id="article_files_modal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+                <h5 class="modal-title" >Add More Files</h5>
+            </div>
+            <form id="article_files_form">
+                <div class="modal-body">
+                    <label class="col-form-label mt-3 title-field">Files (PDF*)</label>
+                    <div class="dropzone" id="my-dropzone"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check me-2"></i>Update</button>
+                    <button type="button" class="btn btn-secondary" id="btn_close_article_files_modal"
+                            data-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

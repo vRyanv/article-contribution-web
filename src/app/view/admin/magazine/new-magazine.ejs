@@ -1,0 +1,108 @@
+<div class="container-fluid pt-4 px-4">
+    <form id="magazine_form">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="bg-white d-flex p-4 shadow rounded justify-content-between align-items-end">
+                    <a href="/admin/magazine">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
+                    </a>
+                    <h5 style="text-align: center;">Create New Magazine</h5>
+                    <button class="btn btn-primary" id="btn_create_new_magazine">
+                        <i class="fa-solid fa-plus me-2"></i>
+                        Create New
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-12">
+                <div class="shadow rounded h-100 p-4">
+                    <label for="start_academic_year" class="col-form-label title-field">Year Of Start Academic</label>
+                    <input type="number" class="form-control" id="start_academic_year" name="start_academic_year" required>
+
+                    <label for="end_academic_year" class="col-form-label mt-3 title-field">Year Of End Academic</label>
+                    <input type="number" class="form-control" id="end_academic_year" name="end_academic_year" required>
+
+                    <label for="title" class="col-form-label mt-3 title-field">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+
+                    <label for="closure_date" class="col-form-label mt-3 title-field">Closure Date</label>
+                    <input type="date" class="form-control" id="closure_date" name="closure_date" required>
+
+                    <label for="final_closure_date" class="col-form-label mt-3 title-field">Final Closure Date</label>
+                    <input type="date" class="form-control" id="final_closure_date" name="final_closure_date" required>
+
+                    <label for="description" class="col-form-label mt-3 title-field">Description</label>
+                    <textarea class="form-control" id="description" name="description" cols="20" rows="5"
+                              required></textarea>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- contentFor('script') %>
+<script>
+
+    $('#magazine_form').submit(function (e) {
+        e.preventDefault()
+
+        let closure_date = $('#closure_date').val()
+        let final_closure_date = $('#final_closure_date').val()
+        let current_date = new Date()
+        current_date = Utils.ConvertDate(current_date)
+        closure_date = Utils.ConvertDate(closure_date)
+        final_closure_date = Utils.ConvertDate(final_closure_date)
+        if(closure_date < current_date){
+            Alert.Show('warning','Closure date must be greater than current date')
+            return
+        } else if(final_closure_date < current_date){
+            Alert.Show('warning','Final closure date must be greater than current date')
+            return
+        } else if(final_closure_date < closure_date){
+            Alert.Show('warning','Final closure date must be greater than closure date')
+            return
+        }
+
+        const start_academic_year = $('#start_academic_year').val()
+        const end_academic_year = $('#end_academic_year').val()
+        if(end_academic_year < start_academic_year){
+            Alert.Show('warning','Start academic year must be greater than end academic year')
+            return
+        }
+
+        const title = $('#title').val()
+        const description = $('#description').val()
+
+        $.ajax({
+            type: 'post',
+            data: {
+                closure_date,
+                final_closure_date,
+                title,
+                description,
+                start_academic_year,
+                end_academic_year
+            },
+            dataType: 'json',
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 201) {
+                        location.href = '/admin/magazine'
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+
+            },
+            error: () => {
+                Alert.Show('danger', 'Something went wrong!')
+            }
+        })
+    })
+</script>
+
+
+<%- contentFor('style') %>

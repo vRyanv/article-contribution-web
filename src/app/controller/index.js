@@ -1,19 +1,29 @@
-const UserController = require('./UserController')
-const MagazineController = require('./MagazineController')
+//admin controller
+const MagazineController = require('./admin/MagazineController')
+const AccountController = require('./admin/AccountController')
+const DashboardController = require('./admin/DashboardController')
+const FacultyController = require('./admin/FacultyController')
+
+//student controller
+const ArticleStudentController = require('./student/ArticleStudentController')
+const MagazineStudentController = require('./student/MagazineStudentController')
+
+
+const CoordinatorController = require('./CoordinatorController')
 const ClientController = require('./ClientController')
-const ArticleController = require('./ArticleController')
-const FeedBackController = require('./FeedBackController')
-const FacultyController = require('./FacultyController')
-const AdminController = require('./AdminController')
 const SecurityController = require('./SecurityController')
 
+const CommentController = require('./CommentController')
+
 module.exports = {
-    UserController,
-    MagazineController,
+    ArticleStudentController,
+    MagazineStudentController,
     ClientController,
-    ArticleController,
-    FeedBackController,
-    FacultyController,
+    DashboardController,
     SecurityController,
-    AdminController
+    MagazineController,
+    FacultyController,
+    AccountController,
+    CommentController,
+    CoordinatorController
 }

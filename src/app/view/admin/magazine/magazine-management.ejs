@@ -1,0 +1,65 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-white container-fluid pt-4 px-4 shadow rounded"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="row g-4">
+                    <div class="col-sm-9 col-xl-9">
+                        <h6>Magazine Table</h6>
+                    </div>
+                    <div class="col-sm-2 col-xl-2" style="text-align: end;margin: 1rem;">
+                        <a href="magazine/new">
+                            <button class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>New</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow rounded h-100 p-4 mt-3">
+                <%- include('./partials/magazine-table', {magazine_list: data.magazine_list}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('script') %>
+<script>
+    $('.btn-edit-magazine').click(function () {
+        const magazine_id = $(this).data('magazine-id')
+        location.href = `/admin/magazine/edit/${magazine_id}`
+    })
+
+    let magazine_id_delete = 0
+    $('.btn-delete-magazine').click(function () {
+        magazine_id_delete = $(this).data('magazine-id')
+        $('#btn_open_confirm_modal').click()
+    })
+
+    $('#btn_ok_confirm').click(function () {
+        $('#btn_close_confirm_modal').click()
+        $.ajax({
+            url: '/admin/magazine/delete',
+            type: 'delete',
+            data: {magazine_id: magazine_id_delete},
+            dataType: 'json',
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 203) {
+                        location.href = '/admin/magazine'
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: (error) => {
+                setTimeout(()=> {
+                    Alert.Show('danger', 'Something went wrong!')
+                    Loading(false)
+                }, 1500)
+            }
+        })
+    })
+</script>
+
+<%- contentFor('style') %>
+

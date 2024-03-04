@@ -1,0 +1,65 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="container-fluid bg-white pt-4 px-4 shadow rounded"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="row g-4">
+                    <div class="col-sm-9 col-xl-9">
+                        <h6>Faculty Table</h6>
+                    </div>
+                    <div class="col-sm-2 col-xl-2" style="text-align: end;margin: 1rem;">
+                        <a href="faculty/new">
+                            <button class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>New</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow rounded h-100 p-4 mt-3">
+                <%- include('./partials/faculty-table', {faculty_list: data.faculty_list}) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('script') %>
+<script>
+    $('.btn-edit-faculty').click(function () {
+        const faculty_id = $(this).data('faculty-id')
+        location.href = `/admin/faculty/edit/${faculty_id}`
+    })
+
+    let faculty_id_delete = 0
+    $('.btn-delete-faculty').click(function () {
+        faculty_id_delete = $(this).data('faculty-id')
+        $('#btn_open_confirm_modal').click()
+    })
+
+    $('#btn_ok_confirm').click(function () {
+        $('#btn_close_confirm_modal').click()
+        $.ajax({
+            url: '/admin/faculty/delete',
+            type: 'delete',
+            data: {faculty_id: faculty_id_delete},
+            dataType: 'json',
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 203) {
+                        location.href = '/admin/faculty'
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: (error) => {
+                setTimeout(()=> {
+                    Alert.Show('danger', 'Something went wrong!')
+                    Loading(false)
+                }, 1500)
+            }
+        })
+    })
+</script>
+
+<%- contentFor('style') %>
+
