@@ -2,23 +2,31 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12" style="position:sticky; z-index:1000; top: 64px">
             <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
-                <h5 style="text-align: center;">Magazine Table</h5>
+                <h5 style="text-align: center;">Articles Over The Years</h5>
+
             </div>
         </div>
         <div class="col-sm-12 col-xl-12">
-            <div class="shadow rounded h-100 p-4">
-                <%- include('./partials/magazine-table', {magazine_list: data.magazine_list}) %>
+            <div class="shadow rounded h-100">
+                <%- include('./partials/article-magazine-table', {magazine_list: data.magazine_list}) %>
             </div>
         </div>
     </div>
 </div>
+
 <%- contentFor('script') %>
 <script>
-    $('.btn-magazine-detail').click(function () {
-        const magazine_id = $(this).data('magazine-id')
-        location.href = `/student/magazine/detail/${magazine_id}`
+    $('.contribute-row').click(function (){
+        const article_id = $(this).data('article-id')
+        location.href = `/student/article/detail/${article_id}`
     })
+
 </script>
 
 <%- contentFor('style') %>
+<style>
+    .account-avatar:hover{
+        cursor: zoom-in;
+    }
+</style>
 
