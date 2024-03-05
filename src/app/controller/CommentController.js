@@ -6,17 +6,23 @@ const CommentController = {
         const result_create = await CommentService.Create(req)
         if (result_create) {
             const date = [
-                result_create.createdAt.getMonth() + 1,
-                result_create.createdAt.getDate(),
+                String(result_create.createdAt.getMonth() + 1).padStart(2, '0'),
+                String(result_create.createdAt.getDate()).padStart(2, '0'),
                 result_create.createdAt.getFullYear()
             ].join('-')
+            const time = [
+                String(result_create.createdAt.getHours()).padStart(2, '0'),
+                String(result_create.createdAt.getMinutes()).padStart(2, '0'),
+            ].join(':')
+            const date_time =   time + ' ' + date
+
             const comment = {
                 user: {
                     full_name: req.user.full_name,
                     avatar: req.user.avatar,
                 },
                 content: result_create.content,
-                date
+                date_time
             }
             return res.status(200).json({code: CREATED, comment, message: 'created comment successfully'})
         }

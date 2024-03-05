@@ -1,6 +1,8 @@
+<div class="table-responsive mt-5">
 <table class="table table-hover" style="text-align: center;">
     <thead>
     <tr>
+        <th scope="col" colspan="2">Student</th>
         <th scope="col">Thumbnail</th>
         <th scope="col">Title</th>
         <th scope="col">Status</th>
@@ -9,7 +11,13 @@
     </thead>
     <tbody>
     <% data.contribute_list.map((contribute) => { %>
-        <tr class="contribute-row" data-contribute-id="<%= contribute._id %>">
+        <tr class="contribute-row" data-article-id="<%= contribute._id %>">
+            <td class="table-active">
+                <img style="max-width: 5rem"
+                     src="/my-assets/media/images/avatar/<%= contribute.student.avatar %>"
+                     alt="avatar">
+            </td>
+            <td class="table-active"><%= contribute.student.full_name %></td>
             <td>
                 <img style="max-width: 5rem"
                      src="/my-assets/media/article/<%= contribute.thumbnail %>"
@@ -31,18 +39,10 @@
                         style="padding: .5rem;color: white;background-color: <%= status_color %>"><%= contribute.status %>
                 </span>
             </td>
-            <td>
-                <%
-                    const submit_date = [
-                        contribute.createdAt.getMonth()+1,
-                        contribute.createdAt.getDate(),
-                        contribute.createdAt.getFullYear()
-                    ].join('-')
-
-                %>
-                <%= submit_date %>
-            </td>
+            <td><%= contribute.submit_date %></td>
         </tr>
     <% }) %>
     </tbody>
 </table>
+
+</div>

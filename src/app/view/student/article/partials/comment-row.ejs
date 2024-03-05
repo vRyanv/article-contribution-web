@@ -7,14 +7,7 @@
                 </div>
                 <div class="name-user">
                     <strong><%= comment.user.full_name %></strong>
-                    <%
-                        let date = [
-                            comment.createdAt.getMonth() + 1,
-                            comment.createdAt.getDate(),
-                            comment.createdAt.getFullYear()
-                        ].join('-')
-                    %>
-                    <span> <%= date %>  </span>
+                    <span> <%= comment.datetime %>  </span>
                 </div>
             </div>
         </div>

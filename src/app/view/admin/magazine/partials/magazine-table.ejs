@@ -1,37 +1,57 @@
-<table class="table table-hover" style="text-align: center;">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Academic Year</th>
-        <th scope="col">Title</th>
-        <th scope="col">Closure Date</th>
-        <th scope="col">Final Closure Date</th>
-        <th scope="col">Description</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% magazine_list.map((magazine, index) => { %>
-        <tr id="<%= magazine._id %>">
-            <td scope="row"><%= index + 1 %></td>
-            <td><%= magazine.start_academic_year + ' - ' + magazine.end_academic_year %></td>
-            <td><%= magazine.title %></td>
-            <td><%= magazine.closure_date %></td>
-            <td><%= magazine.final_closure_date %></td>
-            <td><%= magazine.description %></td>
-            <td style="vertical-align: middle;">
-                <div class="btn-group-vertical" role="group">
-                    <button type="button" class="btn btn-warning btn-edit-magazine" data-magazine-id="<%= magazine._id %>">
-                        <i class="fa-solid fa-pen  me-2"></i>
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-danger btn-delete-magazine" data-magazine-id="<%= magazine._id %>">
-                        <i class="fa-solid fa-trash  me-2"></i>
-                        Delete
-                    </button>
-                </div>
-            </td>
+<div class="table-responsive mt-3">
+    <table class="table table-hover" style="text-align: center;">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Academic Year</th>
+            <th scope="col">Title</th>
+            <th scope="col">Closure Date</th>
+            <th scope="col">Final Closure Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
         </tr>
-    <% }) %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <% magazine_list.map((magazine, index) => { %>
+            <tr id="<%= magazine._id %>">
+                <td scope="row"><%= index + 1 %></td>
+                <td><%= magazine.start_academic_year + ' - ' + magazine.end_academic_year %></td>
+                <td><%= magazine.title %></td>
+                <td><%= magazine.closure_date %></td>
+                <td><%= magazine.final_closure_date %></td>
+                <td><%= magazine.description %></td>
+                <td>
+                    <% if(magazine.is_final_closure){ %>
+                        <span style="padding: 0.5rem;background: red; color: white"
+                              class="rounded">final closure
+                                                </span>
+                    <% } else if(magazine.is_closure){ %>
+                        <span style="padding: 0.5rem;background: var(--primary); color: white"
+                              class="rounded">closure
+                                                </span>
+                    <% } else { %>
+                        <span style="padding: 0.5rem;background: green; color: white"
+                              class="rounded">Opening
+                                                </span>
+                    <% } %>
+                </td>
+                <td style="vertical-align: middle;">
+                    <div class="btn-group-vertical" role="group">
+                        <button type="button" class="btn btn-warning btn-edit-magazine"
+                                data-magazine-id="<%= magazine._id %>">
+                            <i class="fa-solid fa-pen  me-2"></i>
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-delete-magazine"
+                                data-magazine-id="<%= magazine._id %>">
+                            <i class="fa-solid fa-trash  me-2"></i>
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

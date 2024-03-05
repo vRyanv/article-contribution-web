@@ -31,7 +31,7 @@ const ArticleStudentController = {
         }
         return res.status(200).json({code: StatusCode.BAD_REQUEST, message: 'updating article failed!'})
     },
-    async ArticleDetail(req, res){
+    async ArticleDetailPage(req, res){
         const article = await ArticleService.GetArticleById(req)
 
         if (!article) {
@@ -55,7 +55,7 @@ const ArticleStudentController = {
             }
         )
     },
-    ArticleList(req, res) {
+    ArticleContributionPage(req, res) {
 
     },
     async Create(req, res) {
