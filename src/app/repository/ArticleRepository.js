@@ -3,11 +3,22 @@ const {ArticleSchema} = require("../schema");
 const Article = mongoose.model("Article", ArticleSchema);
 
 const ArticleRepository = {
-    GetAllFilesOfArticleById(article_id){
-        return Article.findOne({_id:article_id}).select('files student').populate('student').lean()
+    GetAllArticle() {
+        return Article.find({})
+            .populate('student')
+            .sort({createdAt: 'desc'})
+            .lean()
     },
-    UpdateArticleStatus(article_id, status){
-        return Article.updateOne({_id:article_id}, {status})
+    GetAllArticleListOfStudent(student_id) {
+        return Article.find({student: student_id})
+            .sort({createdAt: 'desc'})
+            .lean()
+    },
+    GetAllFilesOfArticleById(article_id) {
+        return Article.findOne({_id: article_id}).select('files student').populate('student').lean()
+    },
+    UpdateArticleStatus(article_id, status) {
+        return Article.updateOne({_id: article_id}, {status})
     },
     GetAllArticleByFacultyAndMagazine(magazine_id) {
         return Article.find({magazine: magazine_id})

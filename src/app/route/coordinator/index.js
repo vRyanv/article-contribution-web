@@ -5,6 +5,6 @@ const MagazineRouter = require('./MagazineRouter')
 const ArticleRouter = require('./ArticleRouter')
 
 route.use('/magazine', MagazineRouter)
-route.use('/article', ArticleRouter)
+route.use('/contribution', ArticleRouter)
 
 module.exports = route

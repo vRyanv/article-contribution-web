@@ -3,6 +3,18 @@ const {MagazineStatus, MimeType, StoragePath} = require('../constant')
 const {FileUtil, DateUtil} = require('../utils')
 
 const ArticleService = {
+    async GetContributeListForCoordinator(req){
+        const coordinator_faculty_id = req.user.faculty._id
+        let article_list = await ArticleRepository.GetAllArticle()
+        article_list = article_list.filter((article) => {
+            return coordinator_faculty_id === article.student.faculty._id.toString()
+        })
+        return article_list
+    },
+    GetArticleListForStudent(req){
+        const student_id = req.user.id
+        return ArticleRepository.GetAllArticleListOfStudent(student_id)
+    },
     async GetArticleListForCoordinator(req){
         const faculty_id = req.user.faculty._id
         const {magazine_id} = req.params
