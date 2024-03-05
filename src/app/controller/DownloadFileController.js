@@ -24,10 +24,10 @@ const DownloadFileController = {
         return res.end(zip_file_contents);
     },
     async AllFilesDownload(req, res){
-        const files = await ArticleCoordinatorService.GetFilesByArticleId(req)
+        const article = await ArticleCoordinatorService.GetArticleById(req)
 
         const zip = new AdmZip();
-        files.map( file => {
+        article.files.map( file => {
             const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file.filename)
             try{
                 zip.addLocalFile(full_path);
@@ -37,7 +37,7 @@ const DownloadFileController = {
         })
 
         const zip_file_contents = zip.toBuffer();
-        const fileName = `-all-contribution.zip`;
+        const fileName = `${article.student.email}-all-contribution.zip`;
         const fileType = MimeType.ZIP
         res.writeHead(200, {
             'Content-Disposition': `attachment; filename="${fileName}"`,

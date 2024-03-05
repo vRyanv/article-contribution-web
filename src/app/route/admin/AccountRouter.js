@@ -7,7 +7,7 @@ const {StoragePath, MimeType} = require('../../constant')
 
 
 route.get('/', AccountController.AccountManagementPage)
-route.get('/detail/:account_id', AccountController.DetailAccount)
+route.get('/detail/:account_id', AccountController.DetailAccountPage)
 
 route.get('/new', AccountController.NewAccountPage)
 route.post(

@@ -1,0 +1,121 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="col-sm-12 col-xl-12" style="position:sticky; z-index:1000; top: 64px">
+                <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
+                    <h5 style="text-align: center;">Magazine Detail</h5>
+                    <button class="btn btn-primary" type="button" id="btn_change_password">
+                        <i class="fa-solid fa-key me-2"></i>
+                        Change Password
+                    </button>
+                </div>
+            </div>
+            <div class="container-fluid pt-4 px-4" style="padding-right: 0!important;padding-left: 0!important;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <h6>Individual Information</h6>
+                            <label for="email" class="col-form-label title-field">Email</label>
+                            <p><%= data.account.email %></p>
+
+                            <label for="full_name" class="col-form-label title-field mt-3">Full Name</label>
+                            <p><%= data.account.full_name %></p>
+
+                            <label for="gender" class="col-form-label title-field mt-3">Gender</label>
+                            <p><%= data.account.gender %></p>
+
+                            <label for="birth_date" class="col-form-label title-field mt-3">Birth Date</label>
+                            <p><%= data.account.birth_date %></p>
+
+                            <label for="phone" class="col-form-label title-field mt-3">Phone</label>
+                            <p><%= data.account.phone %></p>
+
+                            <label class="col-form-label title-field mt-3">Avatar</label>
+                            <img class="img-thumbnail d-block account-avatar"
+                                 src="/my-assets/media/images/avatar/<%= data.account.avatar %>" alt="" width="30%">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <h6>Academic Information</h6>
+                            <label for="role" class="col-form-label title-field">Role</label>
+                            <p><%= data.account.role %></p>
+
+                            <label for="faculty" class="col-form-label mt-3 title-field">Faculty</label>
+                            <p><%= data.account.faculty.name %></p>
+
+                            <label for="start_year" class="col-form-label mt-3 title-field">Start Year</label>
+                            <p><%= data.account.start_year %></p>
+
+                            <label for="end_year" class="col-form-label mt-3 title-field">End Year</label>
+                            <p><%= data.account.end_year %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/view-image-larger-modal') %>
+<%- include('./partials/change-pass-modal') %>
+
+<%- contentFor('script') %>
+<script>
+    //view avatar larger
+    $('.account-avatar').click(function () {
+        $('#large_image').attr('src', $(this).attr('src'))
+        $('#btn_open_view_image_larger_modal').click()
+    })
+
+    $('#btn_change_password').click(function (){
+        $('#btn_open_change_pass_modal').click()
+    })
+
+    $('#change_pass_form').submit(function (e){
+        e.preventDefault()
+        const current_pass = $('#current_pass').val()
+        const new_pass = $('#new_pass').val()
+        const confirm_pass = $('#confirm_pass').val()
+
+        if(new_pass.trim().length < 8){
+            Alert.Show('warning', 'new password must be greater or equal 8 character')
+            return
+        }
+
+        if(new_pass !== confirm_pass){
+            Alert.Show('warning', 'new password and confirm password is not match!')
+            return
+        }
+
+
+        $.ajax({
+            url: '/profile/update-password',
+            type: 'PUT',
+            data: {current_pass, new_pass},
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 202) {
+                        Alert.Show('success', response.message)
+                        $('#btn_close_change_pass_modal').click()
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: () => {
+                Alert.Show('danger', 'Something went wrong!')
+            }
+        })
+    })
+
+</script>
+
+<%- contentFor('style') %>
+<style>
+    .account-avatar:hover {
+        cursor: zoom-in;
+    }
+</style>
+

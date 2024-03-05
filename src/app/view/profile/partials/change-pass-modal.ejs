@@ -1,0 +1,35 @@
+<button type="button" hidden class="btn btn-primary" id="btn_open_change_pass_modal" data-bs-toggle="modal"
+        data-bs-target="#change_pass_modal">
+</button>
+<div class="modal fade" id="change_pass_modal" data-bs-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+            </div>
+            <form id="change_pass_form">
+                <div class="modal-body">
+                    <label for="current_pass" class="col-form-label title-field">Current Password</label>
+                    <input type="password" class="form-control" id="current_pass" required autocomplete>
+
+                    <label for="new_pass" class="col-form-label title-field mt-3">New Password</label>
+                    <input type="password" class="form-control" id="new_pass" required autocomplete>
+
+                    <label for="confirm_pass" class="col-form-label title-field mt-3">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_pass" required autocomplete>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-check me-2"></i>
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn_close_change_pass_modal"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

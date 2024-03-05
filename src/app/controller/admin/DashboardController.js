@@ -1,12 +1,14 @@
 const DashboardController = {
     DashboardPage(req, res) {
+        const role = req.user.role
         const data = {
-            page_title: 'Dashboard'
+            page_title: 'Dashboard',
+            role
         }
         return res.render(
             'admin/dashboard/dashboard',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
