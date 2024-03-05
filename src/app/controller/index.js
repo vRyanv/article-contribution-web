@@ -8,8 +8,9 @@ const FacultyController = require('./admin/FacultyController')
 const ArticleStudentController = require('./student/ArticleStudentController')
 const MagazineStudentController = require('./student/MagazineStudentController')
 
+//coordinator
+const MagazineCoordinatorController = require('./coordinator/MagazineCoordinatorController')
 
-const CoordinatorController = require('./CoordinatorController')
 const ClientController = require('./ClientController')
 const SecurityController = require('./SecurityController')
 
@@ -25,5 +26,5 @@ module.exports = {
     FacultyController,
     AccountController,
     CommentController,
-    CoordinatorController
+    MagazineCoordinatorController
 }
