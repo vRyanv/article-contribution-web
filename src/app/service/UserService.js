@@ -1,7 +1,32 @@
 const {UserRepository} = require('../repository')
 const {SecurityUtil, FileUtil} = require('../utils')
-const {StoragePath} = require('../constant')
+const {StoragePath, StatusCode} = require('../constant')
 const UserService = {
+    async UpdatePassword(req){
+        const user_id = req.user.id
+        const user = await UserRepository.FindById(user_id)
+        if(!user){
+            return StatusCode.NOT_FOUND
+        }
+
+        let {current_pass, new_pass} = req.body
+        const is_valid_password = await SecurityUtil.Compare(current_pass, user.password)
+
+        if(is_valid_password){
+            new_pass = await SecurityUtil.Hash(new_pass)
+            try{
+                return await UserRepository.Update(user_id, {password:new_pass})
+            } catch (error){
+                return StatusCode.BAD_REQUEST
+            }
+        } else {
+            return StatusCode.BAD_REQUEST
+        }
+    },
+    GetProfileByUserId(req){
+        const user_id = req.user.id
+        return UserRepository.FindById(user_id)
+    },
     GetAccountList(){
         return UserRepository.GetUserList()
     },

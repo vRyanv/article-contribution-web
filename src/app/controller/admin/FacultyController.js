@@ -4,26 +4,30 @@ const {CREATED, BAD_REQUEST, DELETED, UPDATED} = require("../../constant/StatusC
 const FacultyController = {
     async FacultyManagementPage(req, res) {
         const faculty_list = await FacultyService.GetFacultyList()
+        const role = req.user.role
         const data = {
             page_title: 'Faculty',
             faculty_list,
+            role
         }
         return res.render(
             'admin/faculty/faculty-management',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
     },
     NewFacultyPage(req, res) {
+        const role = req.user.role
         const data = {
             page_title: 'Faculty',
+            role
         }
         return res.render(
             'admin/faculty/new-faculty',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
@@ -43,14 +47,16 @@ const FacultyController = {
                 {layout: false}
             )
         }
+        const role = req.user.role
         const data = {
             page_title: 'Faculty',
-            faculty
+            faculty,
+            role
         }
         return res.render(
             'admin/faculty/edit-faculty',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )

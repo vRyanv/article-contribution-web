@@ -5,26 +5,30 @@ const {DateUtil} = require('../../utils')
 const MagazineController = {
     async MagazineManagementPage(req, res){
         const magazine_list = await MagazineService.GetMagazineList()
+        const role = req.user.role
         const data = {
             page_title: 'Magazine',
-            magazine_list
+            magazine_list,
+            role
         }
         return res.render(
             'admin/magazine/magazine-management',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
     },
     NewMagazinePage(req, res){
+        const role = req.user.role
         const data = {
-            page_title: 'Magazine'
+            page_title: 'Magazine',
+            role
         }
         return res.render(
             'admin/magazine/new-magazine',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
@@ -38,6 +42,7 @@ const MagazineController = {
     },
     async EditMagazinePage(req, res){
         const magazine = await MagazineService.GetMagazineById(req)
+        const role = req.user.role
         if(!magazine){
             return res.render(
                 'layout/not-found',
@@ -49,12 +54,13 @@ const MagazineController = {
 
         const data = {
             page_title: 'Magazine',
-            magazine
+            magazine,
+            role
         }
         return res.render(
             'admin/magazine/edit-magazine',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )

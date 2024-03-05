@@ -5,14 +5,16 @@ const {DateUtil} = require("../../utils");
 const AccountController = {
     async AccountManagementPage(req, res) {
         const account_list = await UserService.GetAccountList()
+        const role = req.user.role
         const data = {
             page_title: 'Account',
-            account_list
+            account_list,
+            role
         }
         return res.render(
             'admin/account/account-management',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
@@ -20,15 +22,17 @@ const AccountController = {
     async NewAccountPage(req, res) {
         const role_list = [Roles.STUDENT, Roles.COORDINATOR, Roles.MARKETING_MANAGER]
         const faculty_list = await FacultyService.GetFacultyList()
+        const role = req.user.role
         const data = {
             page_title: 'Account',
             role_list,
             faculty_list,
+            role
         }
         return res.render(
             'admin/account/new-account',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
@@ -60,16 +64,18 @@ const AccountController = {
         }
 
         account.birth_date = DateUtil.ConvertDate(account.birth_date, 'yyyy-MM-dd')
+        const role = req.user.role
         const data = {
             page_title: 'Account',
             role_list,
             faculty_list,
-            account
+            account,
+            role
         }
         return res.render(
             'admin/account/edit-account',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )
@@ -91,7 +97,7 @@ const AccountController = {
         }
         return res.status(200).json({code: BAD_REQUEST, message: `deleting account failed`})
     },
-    async DetailAccount(req, res) {
+    async DetailAccountPage(req, res) {
         const account = await UserService.GetAccountById(req)
 
         if (!account) {
@@ -100,15 +106,16 @@ const AccountController = {
                 {layout: false}
             )
         }
-
+        const role = req.user.role
         const data = {
             page_title: 'Account',
             account,
+            role
         }
         return res.render(
             'admin/account/detail-account',
             {
-                layout: 'layout/portal/admin/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )

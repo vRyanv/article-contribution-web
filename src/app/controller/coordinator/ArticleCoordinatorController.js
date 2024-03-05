@@ -7,7 +7,6 @@ const ArticleCoordinatorController = {
     },
     async AcceptArticle(req, res){
         const update_result =  await ArticleCoordinatorService.AcceptArticle(req)
-        console.log(update_result)
         if(update_result){
             return res.status(200).json({code: OK, message: `updated article status successfully`})
         }
@@ -16,15 +15,17 @@ const ArticleCoordinatorController = {
     async ArticleDetailPage(req, res){
         const article = await ArticleCoordinatorService.GetArticleDetail(req)
         const comment_list = await CommentService.CommentList(req)
+        const role = req.user.role
         const data = {
             page_title: 'Contribution',
             article,
-            comment_list
+            comment_list,
+            role
         }
         return res.render(
             'coordinator/article/article-detail',
             {
-                layout: 'layout/portal/coordinator/portal',
+                layout: 'layout/portal/portal',
                 data
             }
         )

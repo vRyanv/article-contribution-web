@@ -2,7 +2,7 @@ const {ArticleRepository}  = require('../../repository')
 const {DateUtil} = require("../../utils");
 
 const ArticleCoordinatorService = {
-    async GetFilesByArticleId(req) {
+    async GetArticleById(req) {
         let {article_id} = req.params
         try{
             const article = await ArticleRepository.GetAllFilesOfArticleById(article_id)

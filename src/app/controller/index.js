@@ -13,6 +13,7 @@ const ArticleCoordinatorController = require('./coordinator/ArticleCoordinatorCo
 const MagazineCoordinatorController = require('./coordinator/MagazineCoordinatorController')
 
 const DownloadFileController = require('./DownloadFileController')
+const ProfileController = require('./ProfileController')
 const ClientController = require('./ClientController')
 const SecurityController = require('./SecurityController')
 
@@ -30,5 +31,6 @@ module.exports = {
     DownloadFileController,
     CommentController,
     ArticleCoordinatorController,
+    ProfileController,
     MagazineCoordinatorController
 }

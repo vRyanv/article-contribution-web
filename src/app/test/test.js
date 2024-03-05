@@ -14,10 +14,10 @@
 // })
 
 // const DateUtil = require('../utils/DateUtil')
-let date = new Date()
-date = [String(date.getHours()).padStart(2, '0'), String(date.getMinutes()).padStart(2, '0')].join(':')
-console.log(date)
-console.log(String(11).padStart(2, '0'))
+// let date = new Date()
+// date = [String(date.getHours()).padStart(2, '0'), String(date.getMinutes()).padStart(2, '0')].join(':')
+// console.log(date)
+// console.log(String(11).padStart(2, '0'))
 // console.log(DateUtil.IsPassDateAfterDay('3-1-2024', 3))
 // console.log(DateUtil.NumberOfDaysRemaining('3-20-2024', 14))
 //
@@ -26,3 +26,7 @@ console.log(String(11).padStart(2, '0'))
 //
 // console.log(a > b)
 // console.log(DateUtil.ConvertDate(b, 'MM-dd-yyyy'))
+
+const {SecurityUtil} = require('../utils')
+
+console.log(SecurityUtil.Compare('asds', 'asdf'))

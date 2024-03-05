@@ -4,7 +4,7 @@ const Article = mongoose.model("Article", ArticleSchema);
 
 const ArticleRepository = {
     GetAllFilesOfArticleById(article_id){
-        return Article.findOne({_id:article_id}).select('files').lean()
+        return Article.findOne({_id:article_id}).select('files student').populate('student').lean()
     },
     UpdateArticleStatus(article_id, status){
         return Article.updateOne({_id:article_id}, {status})

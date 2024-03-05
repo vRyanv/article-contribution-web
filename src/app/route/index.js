@@ -6,6 +6,7 @@ const ClientRouter = require('./ClientRouter')
 const SecurityRouter = require('./SecurityRouter')
 const CommentRouter = require('./CommentRouter')
 const DownloadRouter = require('./DownloadRouter')
+const ProfileRouter = require('./ProfileRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
@@ -15,42 +16,48 @@ module.exports = (app) => {
 
     app.use(
         '/student',
-        (req, res, next) => Auth.Authorize(req, res, next,[STUDENT]),
+        (req, res, next) => Auth.Authorize(req, res, next, [STUDENT]),
         StudentRouter
     )
     app.use(
         '/coordinator',
-        (req, res, next) => Auth.Authorize(req, res, next,[COORDINATOR]),
+        (req, res, next) => Auth.Authorize(req, res, next, [COORDINATOR]),
         CoordinatorRouter
     )
 
     app.use(
         '/marketing-manager',
-        (req, res, next) => Auth.Authorize(req, res, next,[MARKETING_MANAGER]),
+        (req, res, next) => Auth.Authorize(req, res, next, [MARKETING_MANAGER]),
         MarketingManagerRouter
     )
 
     app.use(
         '/admin',
-        (req, res, next) => Auth.Authorize(req, res, next,[ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next, [ADMIN]),
         AdminRouter
     )
 
     app.use(
         '/comment',
-        (req, res, next) => Auth.Authorize(req, res, next,[STUDENT, COORDINATOR]),
+        (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR]),
         CommentRouter
     )
 
     app.use(
         '/download',
-        (req, res, next) => Auth.Authorize(req, res, next,[MARKETING_MANAGER, COORDINATOR]),
+        (req, res, next) => Auth.Authorize(req, res, next, [MARKETING_MANAGER, COORDINATOR]),
         DownloadRouter
+    )
+
+    app.use(
+        '/profile',
+        (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
+        ProfileRouter
     )
 
     app.use('/', ClientRouter)
 
-    app.use('*', (req, res)=>{
+    app.use('*', (req, res) => {
         res.render('layout/not-found', {layout: false})
     })
 }
