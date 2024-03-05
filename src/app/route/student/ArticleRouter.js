@@ -6,8 +6,8 @@ const {Upload} = require('../../middleware')
 const {StoragePath, MimeType} = require('../../constant')
 
 
-route.get('/', ArticleStudentController.ArticleContributionPage)
-route.get('/detail/:article_id', ArticleStudentController.ArticleDetailPage)
+route.get('/', ArticleStudentController.ArticleList)
+route.get('/detail/:article_id', ArticleStudentController.ArticleDetail)
 
 route.post(
     '/new',

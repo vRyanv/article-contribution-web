@@ -12,7 +12,7 @@ const UserRepository = {
         return User.findById(id).where({deleted: false}).populate('faculty').lean()
     },
     FindByEmail(email){
-        return User.findOne({email, deleted: false}).populate('faculty').lean()
+        return User.findOne({email, deleted: false}).lean()
     },
     GetUserList(){
         return User.find({deleted:false})

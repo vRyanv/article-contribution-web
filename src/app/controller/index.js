@@ -9,10 +9,8 @@ const ArticleStudentController = require('./student/ArticleStudentController')
 const MagazineStudentController = require('./student/MagazineStudentController')
 
 //coordinator
-const ArticleCoordinatorController = require('./coordinator/ArticleCoordinatorController')
 const MagazineCoordinatorController = require('./coordinator/MagazineCoordinatorController')
 
-const DownloadFileController = require('./DownloadFileController')
 const ClientController = require('./ClientController')
 const SecurityController = require('./SecurityController')
 
@@ -27,8 +25,6 @@ module.exports = {
     MagazineController,
     FacultyController,
     AccountController,
-    DownloadFileController,
     CommentController,
-    ArticleCoordinatorController,
     MagazineCoordinatorController
 }

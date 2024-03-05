@@ -1,11 +1,10 @@
-const CoordinatorRouter = require('./coordinator')
+const CoordinatorRouter = require('./CoordinatorRouter')
 const StudentRouter = require('./student')
 const MarketingManagerRouter = require('./MarketingManagerRouter')
 const AdminRouter = require('./admin')
 const ClientRouter = require('./ClientRouter')
 const SecurityRouter = require('./SecurityRouter')
 const CommentRouter = require('./CommentRouter')
-const DownloadRouter = require('./DownloadRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
@@ -40,12 +39,6 @@ module.exports = (app) => {
         '/comment',
         (req, res, next) => Auth.Authorize(req, res, next,[STUDENT, COORDINATOR]),
         CommentRouter
-    )
-
-    app.use(
-        '/download',
-        (req, res, next) => Auth.Authorize(req, res, next,[MARKETING_MANAGER, COORDINATOR]),
-        DownloadRouter
     )
 
     app.use('/', ClientRouter)

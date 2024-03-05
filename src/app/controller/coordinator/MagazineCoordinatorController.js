@@ -1,7 +1,7 @@
-const {MagazineService, ArticleService} = require('../../service')
+const {MagazineService} = require('../../service')
 
 const MagazineCoordinatorController = {
-    async MagazinePage(req, res) {
+    async MagazinePage(req, res){
         const magazine_list = await MagazineService.GetMagazineList()
 
         const data = {
@@ -16,25 +16,25 @@ const MagazineCoordinatorController = {
             }
         )
     },
-    async MagazineDetailPage(req, res) {
+    async MagazineDetail(req, res){
+        console.log(123)
         const magazine = await MagazineService.GetMagazineDetail(req)
 
-        if (!magazine) {
+        if(!magazine){
             return res.render(
                 'layout/not-found',
                 {layout: false}
             )
         }
-        const faculty_name = req.user.faculty.name
-        const contribute_list = await ArticleService.GetArticleListForCoordinator(req)
+
+        const contribute_list = await MagazineService.GetContributeOfFaculty()
         const data = {
             page_title: 'Magazine',
             magazine,
-            contribute_list,
-            faculty_name
+            contribute_list
         }
         return res.render(
-            'coordinator/magazine/magazine-detail-coordinator',
+            'coordinator/magazine/magazine-detail',
             {layout: 'layout/portal/coordinator/portal', data}
         )
     }

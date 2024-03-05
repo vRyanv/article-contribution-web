@@ -2,6 +2,9 @@ const {MagazineRepository} = require('../repository')
 const {DateUtil} = require("../utils");
 
 const MagazineService = {
+    GetContributeOfFaculty(){
+
+    },
     Create(req) {
         const magazine = {
             ...

@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-sm-12 col-xl-12">
-            <div class="container-fluid px-4" style="padding-right: 0!important;padding-left: 0!important;">
+            <div class="container-fluid pt-4 px-4" style="padding-right: 0!important;padding-left: 0!important;">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="shadow rounded h-100 p-4">
@@ -144,17 +144,14 @@
                         <div class="shadow rounded h-100 p-4">
                             <div class="row g-4">
                                 <div class="col-sm-4 col-xl-4">
-                                    <h6>Comments</h6>
-                                    <% if(data.article.days_left_to_comment > 0) { %>
-                                        <h7><%= data.article.days_left_to_comment %> days left to comment</h7>
-                                    <% } %>
+                                    <h6>Feedback</h6>
                                 </div>
                                 <div class="col-sm-8 col-xl-8" style="text-align: end">
-                                    <button <%= data.article.days_left_to_comment <= 0 ? 'hidden' : '' %>
+                                    <button <%= hidden_final %>
                                             class="btn btn-primary"
                                             id="btn_open_send_feedback_modal">
                                         <i class="fa-solid fa-paper-plane me-2"></i>
-                                        Send Comment
+                                        Send Feedback
                                     </button>
                                 </div>
                             </div>
@@ -170,7 +167,7 @@
 </div>
 <%- include('./partials/add-more-files-modal') %>
 <%- include('./partials/confirm-delete-article-modal') %>
-<%- include('../../partials/comment-modal') %>
+<%- include('./partials/comment-modal') %>
 
 <%- contentFor('script') %>
 <script src="/my-assets/js/lib/dropzone-min.js"></script>
@@ -178,7 +175,6 @@
     const thumbnail_article = '<%= data.article.thumbnail %>'
 </script>
 <script src="/my-assets/js/student/article-detail-controller.js"></script>
-<script src="/my-assets/js/comment-controller.js"></script>
 
 <%- contentFor('style') %>
 <link href="/my-assets/css/dropzone.css" rel="stylesheet" type="text/css"/>

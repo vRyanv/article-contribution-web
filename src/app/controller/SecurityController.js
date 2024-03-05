@@ -18,7 +18,6 @@ const SecurityController = {
                 email:user.email,
                 full_name: user.full_name,
                 avatar: user.avatar,
-                faculty: user.faculty,
                 role:user.role
             })
             return res.status(200).json({code:StatusCode.OK, token, role:user.role, message: 'Login success'})
