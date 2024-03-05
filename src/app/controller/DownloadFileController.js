@@ -9,7 +9,7 @@ const DownloadFileController = {
         const zip = new AdmZip();
         const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file_name)
         try{
-            zip.addLocalFile(full_path); 
+            zip.addLocalFile(full_path);
         } catch (error){
             res.redirect('/404')
         }
