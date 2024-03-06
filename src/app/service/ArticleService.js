@@ -109,7 +109,21 @@ const ArticleService = {
         const coordinator_faculty_id = req.user.faculty._id
         let article_list = await ArticleRepository.GetAllArticle()
         article_list = article_list.filter((article) => {
-            return coordinator_faculty_id === article.student.faculty._id.toString()
+            if (coordinator_faculty_id === article.student.faculty._id.toString()) {
+                const submit_date = [
+                    String(article.createdAt.getDate()).padStart(2, '0'),
+                    String(article.createdAt.getMonth() + 1).padStart(2, '0'),
+                    article.createdAt.getFullYear()
+                ].join('-')
+
+                const submit_time = [
+                    String(article.createdAt.getHours()).padStart(2, '0'),
+                    String(article.createdAt.getMinutes() + 1).padStart(2, '0')
+                ].join(':')
+
+                article.submit_date = submit_time + ' ' + submit_date
+                return true
+            }
         })
         return article_list
     },

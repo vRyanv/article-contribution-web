@@ -6,6 +6,9 @@ const User = mongoose.model("User", UserSchema)
 
 
 const UserRepository = {
+    FindMailOfCoordinator(){
+        return User.findOne({role: Roles.COORDINATOR}).select('email').lean()
+    },
     GetStudentQuantity(){
         return User.countDocuments({role: Roles.STUDENT})
     },
