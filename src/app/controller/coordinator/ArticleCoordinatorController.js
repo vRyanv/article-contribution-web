@@ -35,6 +35,7 @@ const ArticleCoordinatorController = {
     },
     async AcceptArticle(req, res){
         const update_result =  await ArticleCoordinatorService.AcceptArticle(req)
+        console.log(update_result)
         if(update_result){
             return res.status(200).json({code: OK, message: `updated article status successfully`})
         }

@@ -12,14 +12,20 @@ const MagazineStudentController = require('./student/MagazineStudentController')
 const ArticleCoordinatorController = require('./coordinator/ArticleCoordinatorController')
 const MagazineCoordinatorController = require('./coordinator/MagazineCoordinatorController')
 
+//marketing manager
+const ArticleMarketingManagerController = require('./marketing-manager/ArticleMarketingManagerController')
+const MagazineMarketingManagerController = require('./marketing-manager/MagazineMarketingManagerController')
+
+//general
 const DownloadFileController = require('./DownloadFileController')
 const ProfileController = require('./ProfileController')
 const ClientController = require('./ClientController')
 const SecurityController = require('./SecurityController')
-
 const CommentController = require('./CommentController')
 
 module.exports = {
+    ArticleMarketingManagerController,
+    MagazineMarketingManagerController,
     ArticleStudentController,
     MagazineStudentController,
     ClientController,

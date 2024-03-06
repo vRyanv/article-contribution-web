@@ -3,6 +3,53 @@ const {MagazineStatus, MimeType, StoragePath} = require('../constant')
 const {FileUtil, DateUtil} = require('../utils')
 
 const ArticleService = {
+    async GetAllContributeForMarketingManager(){
+        try{
+            const article_list = await ArticleRepository.GetAllAcceptedArticle()
+            article_list.map( article => {
+                const submit_date = [
+                    String(article.createdAt.getDate()).padStart(2, '0'),
+                    String(article.createdAt.getMonth() + 1).padStart(2, '0'),
+                    article.createdAt.getFullYear()
+                ].join('-')
+
+                const submit_time = [
+                    String(article.createdAt.getHours()).padStart(2, '0'),
+                    String(article.createdAt.getMinutes() + 1).padStart(2, '0')
+                ].join(':')
+
+                article.submit_date = submit_time + ' ' + submit_date
+            })
+
+            return article_list
+        } catch (error){
+            return null
+        }
+    },
+    async GetContributeForMarketingManager(req){
+        const {magazine_id}  = req.params
+        try{
+            const article_list = await ArticleRepository.GetAllAcceptedArticleMagazine(magazine_id)
+            article_list.map( article => {
+                const submit_date = [
+                    String(article.createdAt.getDate()).padStart(2, '0'),
+                    String(article.createdAt.getMonth() + 1).padStart(2, '0'),
+                    article.createdAt.getFullYear()
+                ].join('-')
+
+                const submit_time = [
+                    String(article.createdAt.getHours()).padStart(2, '0'),
+                    String(article.createdAt.getMinutes() + 1).padStart(2, '0')
+                ].join(':')
+
+                article.submit_date = submit_time + ' ' + submit_date
+            })
+
+            return article_list
+        } catch (error){
+            return null
+        }
+    },
     async GetContributeListForCoordinator(req){
         const coordinator_faculty_id = req.user.faculty._id
         let article_list = await ArticleRepository.GetAllArticle()
@@ -20,7 +67,7 @@ const ArticleService = {
         const {magazine_id} = req.params
 
         try{
-            let article_list = await ArticleRepository.GetAllArticleByFacultyAndMagazine(magazine_id)
+            let article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
             article_list = article_list.filter(article => {
                 if(article.student.faculty.toString() === faculty_id){
                     const submit_date = [
