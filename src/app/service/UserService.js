@@ -2,6 +2,9 @@ const {UserRepository} = require('../repository')
 const {SecurityUtil, FileUtil} = require('../utils')
 const {StoragePath, StatusCode} = require('../constant')
 const UserService = {
+    GetMailOfCoordinator(){
+        return UserRepository.FindMailOfCoordinator()
+    },
     CountStudentQuantity(){
       return UserRepository.GetStudentQuantity()
     },
