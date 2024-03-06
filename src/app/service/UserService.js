@@ -2,6 +2,9 @@ const {UserRepository} = require('../repository')
 const {SecurityUtil, FileUtil} = require('../utils')
 const {StoragePath, StatusCode} = require('../constant')
 const UserService = {
+    CountStudentQuantity(){
+      return UserRepository.GetStudentQuantity()
+    },
     async UpdatePassword(req){
         const user_id = req.user.id
         const user = await UserRepository.FindById(user_id)

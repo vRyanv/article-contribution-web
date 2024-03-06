@@ -6,6 +6,11 @@ const MagazineRepository = {
     Create(magazine){
         return Magazine.create(magazine);
     },
+    GetMagazineListForAdmin(){
+        return Magazine.find({deleted:false})
+            .sort({start_academic_year: 'asc'})
+            .lean()
+    },
     GetMagazineList(){
         return Magazine.find({deleted:false})
             .sort({start_academic_year: 'desc'})

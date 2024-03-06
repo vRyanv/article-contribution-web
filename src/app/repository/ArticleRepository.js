@@ -4,6 +4,9 @@ const {ACCEPTED} = require("../constant/ArticleStatus");
 const Article = mongoose.model("Article", ArticleSchema);
 
 const ArticleRepository = {
+    GetArticleQuantity(){
+        return Article.countDocuments()
+    },
     GetAllAcceptedArticle(){
         return Article.find({status:ACCEPTED})
             .sort({createdAt: 'desc'})
@@ -14,6 +17,13 @@ const ArticleRepository = {
         return Article.find({magazine: magazine_id, status:ACCEPTED})
             .sort({createdAt: 'desc'})
             .populate('student')
+            .lean()
+    },
+    GetAllArticleForAdmin() {
+        return Article.find({})
+            .populate('student')
+            .populate('magazine')
+            .sort({createdAt: 'desc'})
             .lean()
     },
     GetAllArticle() {

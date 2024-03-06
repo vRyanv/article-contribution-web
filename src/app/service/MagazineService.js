@@ -13,6 +13,9 @@ const MagazineService = {
             return null
         }
     },
+    GetMagazineListForAdmin(){
+        return MagazineRepository.GetMagazineListForAdmin()
+    },
     async GetMagazineList() {
         const magazine_list = await MagazineRepository.GetMagazineList()
         magazine_list.map(magazine =>{

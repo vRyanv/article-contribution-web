@@ -4,6 +4,7 @@ const route = express.Router()
 const {DashboardController} = require('../../controller')
 
 route.get('/', DashboardController.DashboardPage)
-route.get('/statistical', DashboardController.Statistical)
+route.get('/statistical-contribution-faculties/:magazine_id', DashboardController.StatisticalContributionOfFaculty)
+route.get('/statistical-contribution-years/:faculty_id', DashboardController.StatisticalContributionOfYear)
 
 module.exports = route

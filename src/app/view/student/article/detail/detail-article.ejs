@@ -171,11 +171,19 @@
 <%- include('./partials/add-more-files-modal') %>
 <%- include('./partials/confirm-delete-article-modal') %>
 <%- include('../../../partials/comment-modal') %>
+<%- include('../../../partials/view-image-larger-modal') %>
 
 <%- contentFor('script') %>
 <script src="/my-assets/js/lib/dropzone-min.js"></script>
 <script>
     const thumbnail_article = '<%= data.article.thumbnail %>'
+
+    //view avatar larger
+    $('#thumb_preview').click(function () {
+        $('#large_image').attr('src', $(this).attr('src'))
+        $('#btn_open_view_image_larger_modal').click()
+    })
+
 </script>
 <script src="/my-assets/js/student/article-detail-controller.js"></script>
 <script src="/my-assets/js/comment-controller.js"></script>
@@ -183,3 +191,8 @@
 <%- contentFor('style') %>
 <link href="/my-assets/css/dropzone.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="/my-assets/css/comment-row.css">
+<style>
+    #thumb_preview:hover {
+        cursor: zoom-in;
+    }
+</style>
