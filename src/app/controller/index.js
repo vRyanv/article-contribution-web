@@ -22,8 +22,10 @@ const ProfileController = require('./ProfileController')
 const ClientController = require('./ClientController')
 const SecurityController = require('./SecurityController')
 const CommentController = require('./CommentController')
+const ChatController = require('./ChatController')
 
 module.exports = {
+    ChatController,
     ArticleMarketingManagerController,
     MagazineMarketingManagerController,
     ArticleStudentController,

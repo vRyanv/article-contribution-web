@@ -7,6 +7,7 @@ const SecurityRouter = require('./SecurityRouter')
 const CommentRouter = require('./CommentRouter')
 const DownloadRouter = require('./DownloadRouter')
 const ProfileRouter = require('./ProfileRouter')
+const ChatRouter = require('./ChatRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
@@ -55,7 +56,11 @@ module.exports = (app) => {
         ProfileRouter
     )
 
-    app.use('/', ClientRouter)
+    app.use(
+        '/chat',
+        (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
+        ChatRouter
+    )
 
     app.use('*', (req, res) => {
         res.render('layout/not-found', {layout: false})

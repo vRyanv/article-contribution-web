@@ -34,4 +34,30 @@ const routing = require('./app/route')
 //Rout init
 routing(app)
 
-module.exports = app
+
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+global.__user_sockets = []
+const {ChatController} = require('./realtime/controller')
+const {JWT} = require("./app/utils");
+io.use((socket, next) => {
+    const token = socket.handshake.query.token
+    const user = JWT.Verify(token)
+    if (user) {
+        socket.sender = user
+        __user_sockets.push({user_id: user.id, socket})
+        next();
+    } else {
+        next(new Error("unauthorized"));
+    }
+})
+
+io.on('connection', function (socket){
+    ChatController(socket)
+})
+// require('./realtime/handler')(io)
+
+module.exports = server
