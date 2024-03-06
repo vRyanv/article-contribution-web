@@ -18,8 +18,11 @@ const ArticleCoordinatorService = {
     async AcceptArticle(req){
         const {article_id, status} = req.body
         try{
-            return await ArticleRepository.UpdateArticleStatus(article_id, status)
+             const result = await ArticleRepository.UpdateArticleStatus(article_id, status)
+            console.log(result)
+            return result
         }catch (error){
+            console.log(error)
             return false
         }
     },

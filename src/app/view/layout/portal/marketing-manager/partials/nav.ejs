@@ -1,0 +1,23 @@
+<% function NavActivated(title) {
+    return title === data.page_title ? "active" : ""
+} %>
+
+<div class="sidebar pe-4 pb-3  shadow p-3 mb-5 bg-body-tertiary" style="z-index: 99998">
+    <nav class="navbar navbar-dark">
+        <a href="/marketing-manager/magazine" class="navbar-brand mx-4 mb-3">
+            <h3 style="color: var(--primary)"><i class="fa-regular fa-newspaper me-2"></i>UMagazine</h3>
+        </a>
+        <div class="navbar-nav w-100">
+            <a href="/marketing-manager/magazine" class="nav-item nav-link <%= NavActivated('Magazine') %>"><i
+                        class="fa-solid fa-layer-group me-2"></i>Magazine</a>
+            <a href="/marketing-manager/contribution" class="nav-item nav-link <%= NavActivated('Contribution') %>"><i
+                        class="fas fa-hand-holding-heart me-2"></i>Contribution</a>
+            <a href="/profile" class="nav-item nav-link <%= NavActivated('Profile') %>"><i
+                        class="fa-regular fa-id-card me-2"></i>Profile</a>
+            <a href="/message" class="nav-item nav-link <%= NavActivated('Messages') %>">
+                <i class="fa-brands fa-facebook-messenger me-2"></i>Messages</a>
+            <a href="/" class="nav-item nav-link"><i class="fas fa-globe me-2"></i>Website</a>
+            <a href="#" class="nav-item nav-link" id="btn_logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+        </div>
+    </nav>
+</div>

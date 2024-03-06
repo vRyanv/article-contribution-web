@@ -12,16 +12,10 @@ if (hidden_final || hidden_closure) {
         <div class="col-sm-12 col-xl-12"
              style="position:sticky; z-index:1000; top: 64px">
             <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
-                <a href="/coordinator/contribution">
+                <a href="/marketing-manager/contribution">
                     <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
                 </a>
                 <h5 style="text-align: center;">Article Detail</h5>
-                <div>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example" <%= hidden_final %>>
-                        <button type="button" class="btn btn-outline-success" id="btn_accept_article">Accept</button>
-                        <button type="button" class="btn btn-outline-danger" id="btn_refuse_article">Refuse</button>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-sm-12 col-xl-12">
@@ -54,7 +48,7 @@ if (hidden_final || hidden_closure) {
                             </div>
                             <input type="hidden" value="<%= data.article._id %>" name="article_id" id="article_id">
                             <label class="form-label title-field mt-3">Magazine</label>
-                            <a href="/coordinator/magazine/detail/<%= data.article.magazine._id %>">
+                            <a href="/marketing-manager/magazine/detail/<%= data.article.magazine._id %>">
                                 <p><%= data.article.magazine.title %>
                                     <%
                                     let color = 'green'
@@ -102,10 +96,10 @@ if (hidden_final || hidden_closure) {
                                 </div>
                                 <div class="col-sm-6 col-xl-6" style="text-align: end">
                                     <a href="/download/all-files/<%= data.article._id %>" download>
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-download me-2"></i>
-                                        Download All
-                                    </button>
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-download me-2"></i>
+                                            Download All
+                                        </button>
                                     </a>
                                 </div>
                                 <div class="col-sm-12 col-xl-12" style="text-align: end">
@@ -114,40 +108,15 @@ if (hidden_final || hidden_closure) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-xl-12">
-                        <div class="shadow rounded h-100 p-4">
-                            <div class="row g-4">
-                                <div class="col-sm-4 col-xl-4">
-                                    <h6>Comments</h6>
-                                    <% if(data.article.days_left_to_comment > 0) { %>
-                                        <h7><%= data.article.days_left_to_comment %> days left to comment</h7>
-                                    <% } %>
-                                </div>
-                                <div class="col-sm-8 col-xl-8" style="text-align: end">
-                                    <button <%= data.article.days_left_to_comment <= 0 ? 'hidden' : '' %>
-                                            class="btn btn-primary"
-                                            id="btn_open_send_feedback_modal">
-                                        <i class="fa-solid fa-paper-plane me-2"></i>
-                                        Send Comment
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="comment_container">
-                        <%- include('./partials/comment-row', {comment_list: data.comment_list}) %>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<%- include('../../../partials/comment-modal') %>
 <%- include('../../../partials/view-image-larger-modal') %>
 
 
 <%- contentFor('script') %>
-<script src="/my-assets/js/comment-controller.js"></script>
 <script>
     const article_id = $('#article_id').val()
     //view avatar larger
@@ -156,63 +125,9 @@ if (hidden_final || hidden_closure) {
         $('#btn_open_view_image_larger_modal').click()
     })
 
-    $('#btn_accept_article').click(function (){
-        const status = 'ACCEPTED'
-        $.ajax({
-            url: '/coordinator/contribution/status-update',
-            type: 'PUT',
-            data: {status, article_id},
-            dataType: 'json',
-            beforeSend: Loading(true),
-            success: (response) => {
-                setTimeout(() => {
-                    if (response.code === 200) {
-                        location.href = `/coordinator/contribution/detail/${article_id}`
-                    } else {
-                        Alert.Show('warning', response.message)
-                    }
-                    Loading(false)
-                }, 1500)
-            },
-            error: (error) => {
-                setTimeout(() => {
-                    Alert.Show('danger', 'Something went wrong!')
-                    Loading(false)
-                }, 1500)
-            }
-        })
-    })
-
-    $('#btn_refuse_article').click(function (){
-        const status = 'REFUSED'
-        $.ajax({
-            url: '/coordinator/contribution/status-update',
-            type: 'PUT',
-            data: {status, article_id},
-            dataType: 'json',
-            beforeSend: Loading(true),
-            success: (response) => {
-                setTimeout(() => {
-                    if (response.code === 200) {
-                        location.href = `/coordinator/contribution/detail/${article_id}`
-                    } else {
-                        Alert.Show('warning', response.message)
-                    }
-                    Loading(false)
-                }, 1500)
-            },
-            error: (error) => {
-                setTimeout(() => {
-                    Alert.Show('danger', 'Something went wrong!')
-                    Loading(false)
-                }, 1500)
-            }
-        })
-    })
 </script>
 
 <%- contentFor('style') %>
-<link rel="stylesheet" href="/my-assets/css/comment-row.css">
 <style>
     #thumb_preview:hover {
         cursor: zoom-in;

@@ -1,6 +1,6 @@
 const CoordinatorRouter = require('./coordinator')
 const StudentRouter = require('./student')
-const MarketingManagerRouter = require('./MarketingManagerRouter')
+const MarketingManagerRouter = require('./marketing-manager')
 const AdminRouter = require('./admin')
 const ClientRouter = require('./ClientRouter')
 const SecurityRouter = require('./SecurityRouter')

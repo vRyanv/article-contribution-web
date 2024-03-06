@@ -1,8 +1,21 @@
 const mongoose = require("mongoose");
 const {ArticleSchema} = require("../schema");
+const {ACCEPTED} = require("../constant/ArticleStatus");
 const Article = mongoose.model("Article", ArticleSchema);
 
 const ArticleRepository = {
+    GetAllAcceptedArticle(){
+        return Article.find({status:ACCEPTED})
+            .sort({createdAt: 'desc'})
+            .populate('student')
+            .lean()
+    },
+    GetAllAcceptedArticleMagazine(magazine_id){
+        return Article.find({magazine: magazine_id, status:ACCEPTED})
+            .sort({createdAt: 'desc'})
+            .populate('student')
+            .lean()
+    },
     GetAllArticle() {
         return Article.find({})
             .populate('student')
@@ -20,7 +33,7 @@ const ArticleRepository = {
     UpdateArticleStatus(article_id, status) {
         return Article.updateOne({_id: article_id}, {status})
     },
-    GetAllArticleByFacultyAndMagazine(magazine_id) {
+    GetAllArticleMagazine(magazine_id) {
         return Article.find({magazine: magazine_id})
             .sort({createdAt: 'desc'})
             .populate('student')

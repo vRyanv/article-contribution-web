@@ -1,0 +1,29 @@
+<div class="rounded h-100 p-4">
+    <h6 class="mb-4">Faculties</h6>
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <%
+                let salt = new Date().getTime()
+            %>
+            <% faculty_list.map((faculty,index)=> {%>
+
+            <button class="nav-link <%= index === 0 ? 'active' : '' %>"
+                    id="v-pills-home-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#faculty_<%= faculty._id + salt %>"
+                    type="button" role="tab">
+                <%= faculty.name %>
+            </button>
+            <% }) %>
+        </div>
+        <div class="tab-content" id="v-pills-tabContent" style="width: 100%;">
+            <% faculty_list.map((faculty,index)=> {%>
+                <div class="tab-pane fade <%= index === 0 ? 'active show' : '' %>"
+                     id="faculty_<%= faculty._id + salt %>"
+                     role="tabpanel">
+                    <%- include('./article-table', {article_list: faculty.articles}) %>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
