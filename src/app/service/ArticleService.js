@@ -1,12 +1,67 @@
 const {MagazineRepository, ArticleRepository} = require('../repository')
-const {MagazineStatus, MimeType, StoragePath} = require('../constant')
+const {MagazineStatus, MimeType, StoragePath, StatusCode} = require('../constant')
 const {FileUtil, DateUtil} = require('../utils')
+const FacultyService = require('./FacultyService')
+const MagazineService = require('./MagazineService')
 
 const ArticleService = {
-    async GetAllContributeForMarketingManager(){
-        try{
+    CountArticleQuantity(){
+      return ArticleRepository.GetArticleQuantity()
+    },
+    async StatisticalForContributeOfYear(req) {
+        const {faculty_id} = req.params
+        const magazine_list = await MagazineService.GetMagazineListForAdmin()
+        let article_list = await ArticleRepository.GetAllArticleForAdmin()
+        if(faculty_id !== 'all'){
+            article_list = article_list.filter(article => {
+                return article.student.faculty.toString() === faculty_id
+            })
+        }
+
+        const statistical_Contribute_year_data = []
+        magazine_list.map(magazine => {
+            const article_belong_magazine = article_list.filter(article => {
+                return article.magazine._id.toString() === magazine._id.toString()
+            })
+            const academic_year = magazine.start_academic_year + ' - ' + magazine.end_academic_year
+            statistical_Contribute_year_data.push({
+                academic_year,
+                article_quantity: article_belong_magazine.length
+            })
+        })
+
+        return statistical_Contribute_year_data
+    },
+    async StatisticalForContributeOfFaculty(req) {
+        const {magazine_id} = req.params
+
+        const faculty_list = await FacultyService.GetFacultyList();
+        let article_list
+
+        if (magazine_id === 'all') {
+            article_list = await ArticleRepository.GetAllArticle()
+        } else {
+            try {
+                article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
+            } catch (error) {
+                return StatusCode.BAD_REQUEST
+            }
+        }
+
+        const statistical_contribute_faculty_data = []
+
+        faculty_list.map(faculty => {
+            const article_belong_faculty = article_list.filter(article => {
+                return article.student.faculty.toString() === faculty._id.toString()
+            })
+            statistical_contribute_faculty_data.push({faculty_name: faculty.name, article_quantity: article_belong_faculty.length})
+        })
+        return statistical_contribute_faculty_data
+    },
+    async GetAllContributeForMarketingManager() {
+        try {
             const article_list = await ArticleRepository.GetAllAcceptedArticle()
-            article_list.map( article => {
+            article_list.map(article => {
                 const submit_date = [
                     String(article.createdAt.getDate()).padStart(2, '0'),
                     String(article.createdAt.getMonth() + 1).padStart(2, '0'),
@@ -22,15 +77,15 @@ const ArticleService = {
             })
 
             return article_list
-        } catch (error){
+        } catch (error) {
             return null
         }
     },
-    async GetContributeForMarketingManager(req){
-        const {magazine_id}  = req.params
-        try{
+    async GetContributeForMarketingManager(req) {
+        const {magazine_id} = req.params
+        try {
             const article_list = await ArticleRepository.GetAllAcceptedArticleMagazine(magazine_id)
-            article_list.map( article => {
+            article_list.map(article => {
                 const submit_date = [
                     String(article.createdAt.getDate()).padStart(2, '0'),
                     String(article.createdAt.getMonth() + 1).padStart(2, '0'),
@@ -46,11 +101,11 @@ const ArticleService = {
             })
 
             return article_list
-        } catch (error){
+        } catch (error) {
             return null
         }
     },
-    async GetContributeListForCoordinator(req){
+    async GetContributeListForCoordinator(req) {
         const coordinator_faculty_id = req.user.faculty._id
         let article_list = await ArticleRepository.GetAllArticle()
         article_list = article_list.filter((article) => {
@@ -58,18 +113,18 @@ const ArticleService = {
         })
         return article_list
     },
-    GetArticleListForStudent(req){
+    GetArticleListForStudent(req) {
         const student_id = req.user.id
         return ArticleRepository.GetAllArticleListOfStudent(student_id)
     },
-    async GetArticleListForCoordinator(req){
+    async GetArticleListForCoordinator(req) {
         const faculty_id = req.user.faculty._id
         const {magazine_id} = req.params
 
-        try{
+        try {
             let article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
             article_list = article_list.filter(article => {
-                if(article.student.faculty.toString() === faculty_id){
+                if (article.student.faculty.toString() === faculty_id) {
                     const submit_date = [
                         String(article.createdAt.getDate()).padStart(2, '0'),
                         String(article.createdAt.getMonth() + 1).padStart(2, '0'),

@@ -7,7 +7,7 @@ $(document).ready(function () {
             //detail article
             $('.contribute-row').click(function (){
                 const article_id = $(this).data('contribute-id')
-                window.open(`/student/article/detail/${article_id}`, '_blank')
+                location.href = `/student/article/detail/${article_id}`
             })
 
             //thumbnail

@@ -1,10 +1,14 @@
 const mongoose = require("mongoose")
 const Types = mongoose.Types
 const {UserSchema} = require('../schema')
+const {Roles} = require("../constant");
 const User = mongoose.model("User", UserSchema)
 
 
 const UserRepository = {
+    GetStudentQuantity(){
+        return User.countDocuments({role: Roles.STUDENT})
+    },
     Update(id, user){
         return User.updateOne({_id:id.toString(), deleted: false}, user).exec()
     },
