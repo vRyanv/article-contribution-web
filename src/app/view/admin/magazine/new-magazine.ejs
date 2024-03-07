@@ -50,10 +50,10 @@
         let closure_date = $('#closure_date').val()
         let final_closure_date = $('#final_closure_date').val()
         let current_date = new Date()
-        current_date = Utils.ConvertDate(current_date)
-        closure_date = Utils.ConvertDate(closure_date)
-        final_closure_date = Utils.ConvertDate(final_closure_date)
-        if(closure_date < current_date){
+        current_date = new Date(current_date)
+        closure_date = new Date(closure_date)
+        final_closure_date = new Date(final_closure_date)
+        if(closure_date.getTime() < current_date.getTime()){
             Alert.Show('warning','Closure date must be greater than current date')
             return
         } else if(final_closure_date < current_date){
