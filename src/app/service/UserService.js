@@ -1,7 +1,26 @@
 const {UserRepository} = require('../repository')
 const {SecurityUtil, FileUtil} = require('../utils')
-const {StoragePath, StatusCode} = require('../constant')
+const {StoragePath, StatusCode, Roles} = require('../constant')
 const UserService = {
+    async GetUserChatListByRole(role){
+        let roles_select
+        if(role !== Roles.STUDENT){
+            roles_select = [Roles.STUDENT]
+        } else {
+            roles_select = [
+                Roles.COORDINATOR,
+                Roles.MARKETING_MANAGER,
+                Roles.ADMIN
+            ]
+        }
+        try{
+            return await UserRepository.GetUserListForChat(roles_select)
+        } catch (error){
+            console.log(error)
+            return []
+        }
+
+    },
     GetMailOfCoordinator(){
         return UserRepository.FindMailOfCoordinator()
     },

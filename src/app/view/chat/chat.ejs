@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+
+    <%- include('../partials/style-part') %>
+    <link rel="stylesheet" href="/my-assets/css/chat.css">
+
+</head>
+<body>
+<%- include('../partials/loading') %>
+<div class="container-fluid position-relative d-flex p-0">
+    <div class="sidebar pe-4 pb-3  shadow p-3 mb-5 bg-body-tertiary" style="z-index: 99998">
+        <nav class="navbar navbar-dark">
+            <a href="/admin/dashboard" class="navbar-brand mx-4 mb-3">
+                <h3 style="color: var(--primary)"><i class="fa-regular fa-newspaper me-2"></i>UMessage</h3>
+            </a>
+            <div class="navbar-nav w-100">
+                <ul class="users">
+                    <% data.user_list.map( user => { %>
+                        <%- include('./partials/user',{user} ) %>
+                    <% }) %>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="content">
+        <!-- Navbar Start -->
+        <nav style="padding: 1rem!important; z-index: 99999; background-color: white"
+             class="shadow navbar navbar-expand navbar-dark sticky-top px-4 py-0">
+            <a href="/admin/dashboard" class="navbar-brand d-flex d-lg-none me-4">
+                <h2 style="color: var(--primary)" class="mb-0"><i class="fa fa-user-edit"></i></h2>
+            </a>
+            <a href="#" style="background-color: #ffc58957;color: var(--primary)" class="sidebar-toggler flex-shrink-0">
+                <i class="fa fa-bars"></i>
+            </a>
+        </nav>
+        <!-- Navbar End -->
+        <div class="container-fluid pt-4 px-4 container-chat">
+            <div class="row g-4">
+                <div class="shadow rounded p-4 mt-3 visually-hidden" id="chat_container" >
+                    <div class="selected-user users">
+                        <div class="" data-user-id="person5">
+                            <div class="user" style="padding: 1rem;">
+                                <img id="avatar_current_user"
+                                     class="me-4"
+                                     src="/my-assets/media/images/avatar/170936945459855E7224E-6FC9-4D0B-9CCD-528F8F445D21 - Trang Háº¡nh.jpeg"
+                                     alt="avatar">
+                                <span class="name" id="name_current_user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <ul class="chat-box">
+<!--                            <% data.user_list.map( user => { %>-->
+<!--                                <%- include('./partials/message',{user} ) %>-->
+<!--                            <% }) %>-->
+                        </ul>
+                    </div>
+                    <form id="content_form">
+                        <div class="d-flex justify-content-between  form-group mt-3 mb-0">
+
+                            <input type="text" class="form-control me-3" id="content_message">
+                            <button type="submit" class="btn btn-primary" style="min-width: 7rem;">
+                                <i class="fa-solid fa-paper-plane me-2"></i>
+                                Send
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="shadow rounded p-4 mt-3" style="height: 85vh; text-align: center" id="bg_default_chat">
+                    <img src="/my-assets/media/decoration/chat.svg" alt="chat" width="30%">
+                    <h3>Chat With Manager</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content End -->
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
+        integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/my-assets/js/chat/chat-module.js"></script>
+<script>
+    $('.sidebar-toggler').click(function () {
+        $('.sidebar, .content').toggleClass("open");
+        return false;
+    });
+</script>
+</html>
+
+
+
