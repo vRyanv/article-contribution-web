@@ -7,7 +7,7 @@ const User = mongoose.model("User", UserSchema)
 
 const UserRepository = {
     GetUserListForChat(roles){
-        return User.find({role: {$in: roles}}).lean()
+        return User.find({role: {$in: roles}, deleted: false}).lean()
     },
     FindMailOfCoordinator(){
         return User.findOne({role: Roles.COORDINATOR}).select('email').lean()
