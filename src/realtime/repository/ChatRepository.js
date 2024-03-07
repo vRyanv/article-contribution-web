@@ -2,15 +2,33 @@ const mongoose = require("mongoose");
 const ChatShema = require('../schema/ChatShema');
 const Chat = mongoose.model("Chat", ChatShema);
 
+const Types = mongoose.Types
+
+
 const ChatRepository = {
-    CreateChat(chat){
+    CreateChat(chat) {
         return Chat.create(chat)
     },
-    AddNewMessage(chat_id, message){
+    AddNewMessage(sender, receiver, message) {
         return Chat.updateOne(
-            { _id:chat_id},
-            {$push: {messages: message }}
+            {members: {$all: [new Types.ObjectId(sender), new Types.ObjectId(receiver)]}},
+            {$push: {messages: message}}
         )
+    },
+    GetMessages(sender, receiver) {
+        return Chat.findOne(
+            {
+                members: {
+                    $all: [new Types.ObjectId(sender), new Types.ObjectId(receiver)]
+                }
+            },
+        ).populate({
+            path: 'messages',
+            populate: {
+                path: 'sender',
+                select: 'avatar'
+            }
+        }).lean()
     }
 }
 

@@ -157,6 +157,11 @@
     background: #fd7274;
 }
 
+.users .person .user .status.online {
+    background: green;
+}
+
+
 .users .person p.name-time {
     font-weight: 600;
     font-size: .85rem;
