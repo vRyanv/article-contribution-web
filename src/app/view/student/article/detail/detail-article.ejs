@@ -1,12 +1,11 @@
 <%
-    let hidden_final = data.article.magazine.is_final_closure ? 'hidden' : ''
-    let hidden_closure = data.article.magazine.is_closure ? 'hidden' : ''
+let hidden_final = data.article.magazine.is_final_closure ? 'hidden' : ''
+let hidden_closure = data.article.magazine.is_closure ? 'hidden' : ''
 
-    let hidden_closure_final = ''
-    if(hidden_final || hidden_closure){
-        hidden_closure_final = 'hidden'
-    }
-
+let hidden_closure_final = ''
+if (hidden_final || hidden_closure) {
+    hidden_closure_final = 'hidden'
+}
 %>
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -17,7 +16,14 @@
                     <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
                 </a>
                 <h5 style="text-align: center;">Article Detail</h5>
-                <button class="btn btn-danger" id="btn_delete_article" <%= hidden_closure_final %>>
+                <%
+                let can_handle_article = 'hidden'
+                if (data.article.status === 'OPENING') {
+                    can_handle_article = ''
+                }
+                %>
+                <button class="btn btn-danger"
+                        id="btn_delete_article" <%= hidden_closure_final %> <%= can_handle_article %> >
                     <i class="fa-solid fa-trash me-2"></i>
                     Delete Article
                 </button>
@@ -55,19 +61,20 @@
                                 <input type="hidden" value="<%= data.article._id %>" name="article_id" id="article_id">
                                 <label class="form-label title-field mt-3">Magazine</label>
                                 <a href="/student/magazine/detail/<%= data.article.magazine._id %>">
-                                    <p ><%= data.article.magazine.title %>
+                                    <p><%= data.article.magazine.title %>
                                         <%
                                         let color = 'green'
                                         let status = 'opening'
-                                        if(data.article.magazine.is_final_closure){
+                                        if (data.article.magazine.is_final_closure) {
                                             color = 'red'
                                             status = 'final closure'
-                                        } else if(data.article.magazine.is_closure){
+                                        } else if (data.article.magazine.is_closure) {
                                             color = 'var(--primary)'
                                             status = 'closure'
                                         }
                                         %>
-                                        <span class="rounded" style="padding: 0.2rem;background: <%= color %>; color: white">
+                                        <span class="rounded"
+                                              style="padding: 0.2rem;background: <%= color %>; color: white">
                                           <%= status %>
                                         </span>
                                     </p>
@@ -78,6 +85,7 @@
                                        type="text"
                                        name="title"
                                         <%= data.article.magazine.is_final_closure ? 'disabled' : '' %>
+                                        <%= can_handle_article === 'hidden' ? 'disabled' : '' %>
                                        value="<%= data.article.title %>"
                                        required>
 
@@ -86,6 +94,7 @@
                                        type="text"
                                        name="description"
                                         <%= data.article.magazine.is_final_closure ? 'disabled' : '' %>
+                                        <%= can_handle_article === 'hidden' ? 'disabled' : '' %>
                                        value="<%= data.article.description %>"
                                        required>
 
@@ -102,12 +111,13 @@
                                        Accept="image/png, image/jpeg, image/jpg">
                                 <button class="btn btn-primary mt-3"
                                         type="button"
+                                        <%= can_handle_article %>
                                         <%= hidden_final %>
                                         id="btn_choose_thumb">
                                     <i class="fa-solid fa-upload me-2"></i>
                                     Upload image
                                 </button>
-                                <div <%= hidden_final %>>
+                                <div <%= hidden_final %> <%= can_handle_article %>>
                                     <hr>
                                     <div style="text-align: end;">
                                         <button class="btn btn-success" id="btn_update_article_basic_info">
@@ -126,7 +136,7 @@
                                     <h6>Files</h6>
                                 </div>
                                 <div class="col-sm-6 col-xl-6" style="text-align: end">
-                                    <button <%= hidden_final %>
+                                    <button <%= hidden_final %> <%= can_handle_article %>
                                             class="btn btn-primary"
                                             type="button"
                                             id="btn_add_article_file">
@@ -135,7 +145,7 @@
                                     </button>
                                 </div>
                                 <div class="col-sm-12 col-xl-12" style="text-align: end">
-                                    <%- include('./partials/file-table', {files: data.article.files, hidden_final}) %>
+                                    <%- include('./partials/file-table', {files: data.article.files, hidden_final, can_handle_article}) %>
                                 </div>
                             </div>
                         </div>

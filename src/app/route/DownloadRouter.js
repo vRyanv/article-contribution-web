@@ -5,6 +5,7 @@ const {DownloadFileController} = require('../controller')
 
 route.get('/one-file/:file_name', DownloadFileController.OneFileDownload)
 route.get('/all-files/:article_id', DownloadFileController.AllFilesDownload)
+route.get('/all-files/faculty/:faculty_id/magazine/:magazine_id', DownloadFileController.FacultyAllFilesDownload)
 
 
 module.exports = route

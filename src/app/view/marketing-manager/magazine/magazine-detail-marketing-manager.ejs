@@ -50,11 +50,28 @@ if (data.magazine.is_closure || data.magazine.is_final_closure) {
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                         <label class="col-form-label title-field mt-3">Closure Date</label>
-                        <p><%= data.magazine.closure_date %></p>
+                        <p>
+                            <%=
+                            [
+                                String(data.magazine.closure_date.getMonth() + 1).padStart(2, '0'),
+                                String(data.magazine.closure_date.getDate()).padStart(2, '0'),
+                                data.magazine.closure_date.getFullYear()
+                            ].join('-')
+                            %>
+                        </p>
+
                     </div>
                     <div class="col-sm-6 col-md-6 col-xl-3">
                         <label class="col-form-label title-field mt-3">Final Closure Date</label>
-                        <p><%= data.magazine.final_closure_date %></p>
+                        <p>
+                            <%=
+                            [
+                                String(data.magazine.final_closure_date.getMonth() + 1).padStart(2, '0'),
+                                String(data.magazine.final_closure_date.getDate()).padStart(2, '0'),
+                                data.magazine.final_closure_date.getFullYear()
+                            ].join('-')
+                            %>
+                        </p>
                     </div>
                 </div>
                 <div class="row g-4">
@@ -72,7 +89,7 @@ if (data.magazine.is_closure || data.magazine.is_final_closure) {
                         <h6>Article Contributed</h6>
                     </div>
                 </div>
-                <%- include('./partials/faculty-contribute-table', {faculty_list:data.faculty_list}) %>
+                <%- include('./partials/faculty-contribute-table', {faculty_list:data.faculty_list, magazine_id: data.magazine._id}) %>
             </div>
         </div>
     </div>

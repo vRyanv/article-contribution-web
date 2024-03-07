@@ -49,10 +49,26 @@
                             <p><%= data.magazine.title %></p>
 
                             <label class="col-form-label title-field mt-3">Closure Date</label>
-                            <p><%= data.magazine.closure_date %></p>
+                            <p>
+                                <%=
+                                [
+                                    String(data.magazine.closure_date.getMonth() + 1).padStart(2, '0'),
+                                    String(data.magazine.closure_date.getDate()).padStart(2, '0'),
+                                    data.magazine.closure_date.getFullYear()
+                                ].join('-')
+                                %>
+                            </p>
 
                             <label class="col-form-label title-field mt-3">Final Closure Date</label>
-                            <p><%= data.magazine.final_closure_date %></p>
+                            <p>
+                                <%=
+                                [
+                                    String(data.magazine.final_closure_date.getMonth() + 1).padStart(2, '0'),
+                                    String(data.magazine.final_closure_date.getDate()).padStart(2, '0'),
+                                    data.magazine.final_closure_date.getFullYear()
+                                ].join('-')
+                                %>
+                            </p>
 
                             <label class="col-form-label title-field mt-3">Description</label>
                             <p><%= data.magazine.description %></p>

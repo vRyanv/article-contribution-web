@@ -18,8 +18,24 @@
                 <td scope="row"><%= index + 1 %></td>
                 <td><%= magazine.start_academic_year + ' - ' + magazine.end_academic_year %></td>
                 <td><%= magazine.title %></td>
-                <td><%= magazine.closure_date %></td>
-                <td><%= magazine.final_closure_date %></td>
+                <td>
+                    <%=
+                        [
+                            String(magazine.closure_date.getMonth() + 1).padStart(2, '0'),
+                            String(magazine.closure_date.getDate()).padStart(2, '0'),
+                            magazine.closure_date.getFullYear()
+                        ].join('-')
+                    %>
+                </td>
+                <td>
+                    <%=
+                        [
+                            String(magazine.final_closure_date.getMonth() + 1).padStart(2, '0'),
+                            String(magazine.final_closure_date.getDate()).padStart(2, '0'),
+                            magazine.final_closure_date.getFullYear()
+                        ].join('-')
+                    %>
+                </td>
                 <td><%= magazine.description %></td>
                 <td>
                     <% if(magazine.is_final_closure){ %>

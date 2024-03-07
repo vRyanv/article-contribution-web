@@ -13,7 +13,12 @@ const FacultyService = {
     },
     GetFacultyById(req){
         const {faculty_id} = req.params
-        return FacultyRepository.FindById(faculty_id)
+        try{
+            return FacultyRepository.FindById(faculty_id)
+        } catch (error){
+            console.log(error)
+            return null
+        }
     },
     Update(req){
         const {faculty_id, name} = req.body
