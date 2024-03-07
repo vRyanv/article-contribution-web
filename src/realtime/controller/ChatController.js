@@ -4,42 +4,37 @@ const ChatController = (socket) => {
 
     const message = async (data) => {
         const content = data.content
-
+        console.log(content)
         const receiver = __user_sockets.find(user => {
             return user.user_id === content.receiver
         })
+
         content.sender = {
             id: socket.sender.id,
             full_name: socket.sender.full_name,
             avatar: socket.sender.avatar
         }
         const sender_id = socket.sender.id
-        const members = [sender_id, content.receiver]
         let time = new Date()
         const message = {
             sender: content.sender.id,
             message: content.message,
             time
         }
+        try{
+            await ChatRepository.AddNewMessage(sender_id, content.receiver, message)
+        } catch (error){
+            console.log(error)
+        }
+        content.time = [
+            String(time.getHours()).padStart(2, '0'),
+            String(time.getMinutes()).padStart(2, '0')
+        ].join(':')
 
-        if (content.chat_id) {
-            await ChatRepository.AddNewMessage(content.chat_id, message)
-        } else {
-            let new_chat = {
-                members,
-                messages: [message]
-            }
-            new_chat = await ChatRepository.CreateChat(new_chat)
-            content.new_chat_id = new_chat._id
-        }
         if (receiver) {
-            content.time = [
-                String(time.getHours()).padStart(2, '0'),
-                String(time.getMinutes()).padStart(2, '0')
-            ].join(':')
             receiver.socket.emit('chat:message', {content})
-            socket.emit('chat:message', {content})
         }
+        socket.emit('chat:message', {content})
     }
     const disconnect = () => {
         socket.removeAllListeners()
