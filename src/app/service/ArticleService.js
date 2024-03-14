@@ -222,6 +222,7 @@ const ArticleService = {
         magazine.is_closure = DateUtil.IsPassedDate(magazine.closure_date)
         magazine.is_final_closure = DateUtil.IsPassedDate(magazine.final_closure_date)
         article.days_left_to_comment = DateUtil.NumberOfDaysRemaining(article.createdAt.toString(), 14)
+
         return article
     },
     GetStudentContributeListOfMagazine(req, magazine_id) {

@@ -29,9 +29,8 @@ const DateUtil = {
             throw new Error('Invalid date format')
         }
     },
-    IsPassedDate(date_string) {
+    IsPassedDate(date) {
         let current_date = new Date()
-        let date = new Date(date_string)
         return date.getTime() < current_date.getTime();
     },
     NumberOfDaysRemaining(date_string, after_day) {
