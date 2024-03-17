@@ -6,6 +6,12 @@ let hidden_closure_final = ''
 if (hidden_final || hidden_closure) {
     hidden_closure_final = 'hidden'
 }
+
+let can_handle_article = ''
+if(data.article.status === 'ACCEPTED' || data.article.status === 'REFUSED' || hidden_final){
+    can_handle_article = 'hidden'
+}
+
 %>
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
@@ -16,12 +22,6 @@ if (hidden_final || hidden_closure) {
                     <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
                 </a>
                 <h5 style="text-align: center;">Article Detail</h5>
-                <%
-                let can_handle_article = 'hidden'
-                if (data.article.status === 'QUEUE') {
-                    can_handle_article = ''
-                }
-                %>
                 <button class="btn btn-danger"
                         id="btn_delete_article" <%= hidden_closure_final %> <%= can_handle_article %> >
                     <i class="fa-solid fa-trash me-2"></i>
