@@ -3,7 +3,6 @@
         <div class="col-sm-12 col-xl-12" style="position:sticky; z-index:1000; top: 64px">
             <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
                 <h5 style="text-align: center;">Articles Over The Years</h5>
-
             </div>
         </div>
         <div class="col-sm-12 col-xl-12">
@@ -15,16 +14,5 @@
 </div>
 
 <%- contentFor('script') %>
-<script>
-    $('.contribute-row').click(function (){
-        const article_id = $(this).data('article-id')
-        location.href = `/coordinator/contribution/detail/${article_id}`
-    })
-</script>
 
 <%- contentFor('style') %>
-<style>
-    .account-avatar:hover{
-        cursor: zoom-in;
-    }
-</style>
