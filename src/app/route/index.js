@@ -8,9 +8,10 @@ const CommentRouter = require('./CommentRouter')
 const DownloadRouter = require('./DownloadRouter')
 const ProfileRouter = require('./ProfileRouter')
 const ChatRouter = require('./ChatRouter')
+const GuestRoute = require('./GuestRoute')
 
 const Auth = require('../middleware/Auth')
-const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER} = require("../constant/Roles");
+const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER, GUEST} = require("../constant/Roles");
 
 module.exports = (app) => {
     app.use('/security', SecurityRouter)
@@ -19,6 +20,11 @@ module.exports = (app) => {
         '/student',
         (req, res, next) => Auth.Authorize(req, res, next, [STUDENT]),
         StudentRouter
+    )
+    app.use(
+        '/guest',
+        (req, res, next) => Auth.Authorize(req, res, next, [GUEST, STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
+        GuestRoute
     )
     app.use(
         '/coordinator',

@@ -74,7 +74,9 @@
                             location.href = '/coordinator/magazine'
                         } else if (response.role === 'MARKETING MANAGER') {
                             location.href = '/marketing-manager/magazine'
-                        }
+                        }else if (response.role === 'GUEST') {
+                            location.href = '/guest'
+                        }	                        
                     } else {
                         Alert.Show('warning', 'email or password is wrong!')
                     }

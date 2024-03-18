@@ -27,6 +27,8 @@
         <%- include('./coordinator/partials/nav') %>
     <% } else if(data.role === 'MARKETING MANAGER') { %>
         <%- include('./marketing-manager/partials/nav') %>
+    <% } else if(data.role === 'GUEST') { %>
+        <%- include('./guest/partials/nav') %>
     <% } %>
     <!-- Content Start -->
     <div class="content">

@@ -18,7 +18,6 @@ const ArticleSchema = new Schema({
     },
     thumbnail: {type: String, required: true},
     files: {type:Array, required: true},
-    accept_date: {type: String, required: false},
     status: {type: String, default: ArticleStatus.QUEUE}
 }, {timestamps: true})
 
