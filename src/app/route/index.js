@@ -9,12 +9,15 @@ const DownloadRouter = require('./DownloadRouter')
 const ProfileRouter = require('./ProfileRouter')
 const ChatRouter = require('./ChatRouter')
 const GuestRoute = require('./GuestRoute')
+const RegisterRouter = require('./RegisterRoute')
+
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER, GUEST} = require("../constant/Roles");
 
 module.exports = (app) => {
     app.use('/security', SecurityRouter)
+    app.use('/register', RegisterRouter)
 
     app.use(
         '/student',
