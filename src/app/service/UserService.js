@@ -77,6 +77,30 @@ const UserService = {
             return false
         }
     },
+    async Register(req){
+        const email = req.body.email
+        const user_existed = await UserRepository.FindByEmail(email)
+        if(user_existed){
+            return 'user_existed'
+        }
+        req.body.password = await SecurityUtil.Hash(req.body.password)
+        const user = {
+            ...req.body
+        }
+        user.full_name = 'Chuong'
+        user.birth_date = '1/1/2000'
+        user.phone = '0123321123'
+        user.gender = 'male'
+        user.role = 'GUEST'
+        user.start_year = '1/1/2000'
+        user.end_year = '1/1/2000'
+        user.faculty = null
+        try{
+            return UserRepository.CreateRegister(user)
+        }catch (error){
+            return false
+        }
+    },
     GetAccountById(req){
         const {account_id} = req.params
         return UserRepository.FindById(account_id)

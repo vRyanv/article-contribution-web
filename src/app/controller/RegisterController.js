@@ -1,15 +1,13 @@
 const {UserService, FacultyService} = require("../service");
 const {Roles} = require('../constant')
-const {CREATED, BAD_REQUEST, UPDATED, DELETED} = require("../constant/StatusCode");
+const {CREATED, BAD_REQUEST} = require("../constant/StatusCode");
 const {DateUtil} = require("../utils");
 
 
 const RegisterController = {
     async NewRegisterPage(req, res) {
-        const faculty_list = await FacultyService.GetFacultyList()
         const data = {
-            page_title: 'Account',
-            faculty_list,
+            page_title: 'Register',
             role: Roles.GUEST
         }
         return res.render(
@@ -21,18 +19,17 @@ const RegisterController = {
         )
     },
     async CreateRegister(req, res) {
-        const account = await UserService.CreateAccount(req)
-        if (account === 'user_existed') {
+        const register = await UserService.Register(req)
+        if (register === 'user_existed') {
             return res.status(200).json({
                 code: BAD_REQUEST,
                 message: `Account already exists with email: ${req.body.email}`
             })
-        } else if (account === 'invalid avatar') {
-            return res.status(200).json({code: BAD_REQUEST, message: `Avatar must be an image`})
-        } else if (account) {
-            return res.status(200).json({code: CREATED, message: 'created account successfully'})
+       
+        } else if (register) {
+            return res.status(200).json({code: CREATED, message: 'created successfully'})
         }
-        return res.status(200).json({code: BAD_REQUEST, message: 'creating account failed'})
+        return res.status(200).json({code: BAD_REQUEST, message: 'creating failed'})
     },
 }
 

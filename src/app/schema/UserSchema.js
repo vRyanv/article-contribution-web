@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     faculty: {
         type: Schema.Types.ObjectId,
         ref: 'Faculty',
-        required: true
+        required: false
     },
     deleted: {type:Boolean, default: false},
 }, {timestamps: true})

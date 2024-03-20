@@ -32,6 +32,9 @@ const UserRepository = {
     Create(user){
         return User.create(user)
     },
+    CreateRegister(user){
+        return User.create(user)
+    },
     Delete(id){
         return User.updateOne({_id:id},{deleted:true})
     }
