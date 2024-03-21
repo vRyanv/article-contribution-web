@@ -25,7 +25,9 @@ const UserRepository = {
         return User.findOne({email, deleted: false}).populate('faculty').lean()
     },
     GetUserList(){
+        const roles = [Roles.MARKETING_MANAGER, Roles.STUDENT, Roles.COORDINATOR]
         return User.find({deleted:false})
+            .where({role : { $in : roles}})
             .populate('faculty')
             .lean()
     },
