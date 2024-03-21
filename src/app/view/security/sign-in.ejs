@@ -34,9 +34,6 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" autocomplete required>
                 </div>
-                <a href="#" >
-                <p style="color: #FF7900; text-align: end; width: 100%">Forgot password?</p>
-                </a>
                 <button  style="width: 100%" type="submit" class="btn btn-primary mt-5" id="btn_login">Login</button>
             </form>
         </div>
@@ -74,7 +71,9 @@
                             location.href = '/coordinator/magazine'
                         } else if (response.role === 'MARKETING MANAGER') {
                             location.href = '/marketing-manager/magazine'
-                        }
+                        }else if (response.role === 'GUEST') {
+                            location.href = '/guest'
+                        }	                        
                     } else {
                         Alert.Show('warning', 'email or password is wrong!')
                     }
@@ -90,5 +89,4 @@
         })
     })
 </script>
-
 </html>
