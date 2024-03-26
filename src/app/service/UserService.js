@@ -1,7 +1,15 @@
 const {UserRepository} = require('../repository')
-const {SecurityUtil, FileUtil} = require('../utils')
+const {SecurityUtil, FileUtil, Authenticator} = require('../utils')
 const {StoragePath, StatusCode, Roles} = require('../constant')
 const UserService = {
+    async Update2FA(user_id, is_2fa_enable){
+        try{
+            return await UserRepository.Update(user_id, {is_2fa_enable})
+        } catch (error){
+            console.error(error)
+            return false
+        }
+    },
     async GetUserChatListByRole(role){
         let roles_select
         if(role !== Roles.STUDENT){
@@ -68,7 +76,11 @@ const UserService = {
             return 'user_existed'
         }
         req.body.password = await SecurityUtil.Hash(req.body.password)
+
+        const secret = Authenticator.GenerateUniqueSecret();
+
         const user = {
+            secret,
             ...req.body
         }
         try{

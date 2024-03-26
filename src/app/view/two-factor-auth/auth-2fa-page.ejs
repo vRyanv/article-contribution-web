@@ -6,8 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/my-assets/media/decoration/blog.svg">
-    <title>Sign In</title>
-
+    <title>Verify 2FA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/all.min.css">
 
     <link href="/my-assets/css/portal/bootstrap.min.css" rel="stylesheet">
@@ -17,25 +18,22 @@
 </head>
 <body style="background: white">
 <%- include('../partials/loading') %>
-
 <div class="container-fluid">
     <div class="row justify-content-center" style="padding: 3rem">
-        <div class="col-sm-12 col-md-5 col-lg-4">
-            <img class="img-fluid" src="/my-assets/media/decoration/blog.svg" alt="sing up image">
-        </div>
-        <div class="col-sm-12 col-md-5 col-lg-3 mt-5 ms-5">
-            <h2 class="form-title ">Sign In</h2>
-            <form id="login_form" class="mt-5">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" required>
+        <div class="col-sm-12 col-md-5 col-lg-5 mt-5" style="text-align: center">
+            <h1 style="color: orange;">UMagazine</h1>
+            <h3>Two-Factor Authentication (2FA)</h3>
+            <form id="verify_form" class="mt-5">
+                <div class="mb-3"style="text-align: start!important;">
+                    <label for="token" class="form-label" >Token</label>
+                    <input type="number" class="form-control" id="token" required>
+                    <input type="hidden" id="email" value="<%= email %>">
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" autocomplete required>
-                </div>
-                <button style="width: 100%" type="submit" class="btn btn-primary mt-5" id="btn_login">Login</button>
+                <button style="width: 100%" type="submit" class="btn btn-primary mt-3" id="btn_verify">Verify</button>
             </form>
+            <a href="/security/sign-in" id="btn_back">
+                <p style="margin-top: 2rem;color: var(--primary)">Back</p>
+            </a>
         </div>
     </div>
 </div>
@@ -50,14 +48,15 @@
 <script src="/my-assets/js/loading.js"></script>
 
 <script>
-    $('#login_form').submit(function (e) {
+    $('#verify_form').submit(function (e) {
         e.preventDefault()
+        const token = $('#token').val()
         const email = $('#email').val()
-        const password = $('#password').val()
+
         $.ajax({
-            url: '/security/sign-in',
+            url: '/two-factor-authentication/verify',
             type: 'post',
-            data: {email, password},
+            data: {email, token},
             beforeSend: Loading(true),
             success: (response) => {
                 setTimeout(() => {
@@ -74,10 +73,8 @@
                         } else if (response.role === 'GUEST') {
                             location.href = '/guest'
                         }
-                    } else if (response.code === 205) {
-                        location.href = `/two-factor-authentication/verify/${response.email}`
                     } else {
-                        Alert.Show('warning', 'email or password is wrong!')
+                        Alert.Show('warning', response.message)
                     }
                     Loading(false)
                 }, 1500)

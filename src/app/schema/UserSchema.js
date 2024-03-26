@@ -18,6 +18,8 @@ const UserSchema = new Schema({
         required: false
     },
     deleted: {type:Boolean, default: false},
+    is_2fa_enable: {type: Boolean, default: false},
+    secret: {type: String, required: true},
 }, {timestamps: true})
 
 module.exports = UserSchema

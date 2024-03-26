@@ -27,6 +27,9 @@
 // console.log(a > b)
 // console.log(DateUtil.ConvertDate(b, 'MM-dd-yyyy'))
 
-const {SecurityUtil} = require('../utils')
-
-console.log(SecurityUtil.Compare('asds', 'asdf'))
+// const {SecurityUtil} = require('../utils')
+//
+// console.log(SecurityUtil.Compare('asds', 'asdf'))
+const {Authenticator} = require('../utils')
+const secret = Authenticator.GenerateUniqueSecret();
+console.log(secret)

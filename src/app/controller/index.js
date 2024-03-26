@@ -25,8 +25,10 @@ const CommentController = require('./CommentController')
 const ChatController = require('./ChatController')
 const GuestController = require('./GuestController')
 const RegisterController = require('./RegisterController')
+const TwoFactorAuthController = require('./TwoFactorAuthController')
 
 module.exports = {
+    TwoFactorAuthController,
     ChatController,
     GuestController,
     ArticleMarketingManagerController,

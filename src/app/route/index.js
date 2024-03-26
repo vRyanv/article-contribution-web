@@ -10,6 +10,7 @@ const ProfileRouter = require('./ProfileRouter')
 const ChatRouter = require('./ChatRouter')
 const GuestRoute = require('./GuestRoute')
 const RegisterRouter = require('./RegisterRoute')
+const TwoFactorAuthRouter = require('./TwoFactorAuthRouter')
 
 
 const Auth = require('../middleware/Auth')
@@ -69,6 +70,11 @@ module.exports = (app) => {
         '/chat',
         (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
         ChatRouter
+    )
+
+    app.use(
+        '/two-factor-authentication',
+        TwoFactorAuthRouter
     )
 
     app.use('*', (req, res) => {

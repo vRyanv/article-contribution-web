@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Enable 2FA</title>
+    <%- include('../partials/style-part') %>
+
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<%- include('../partials/loading') %>
+<div style="padding-top: 5rem">
+    <h1 style="color: var(--primary);">UMagazine</h1>
+    <h3>Two-Factor Authentication (2FA)</h3>
+    <p>Scan this QR code and then click enable button</p>
+    <img src="<%= QRCodeImg %>" alt="qr code">
+    <div style="margin-top: 1.5rem">
+        <button <%= is_2fa_enable ? '' : 'hidden' %> class="btn btn-danger" id="btn_disable" >
+            Disable 2FA
+        </button>
+        <button <%= is_2fa_enable ? 'hidden' : '' %> class="btn btn-primary" id="btn_enable">
+            Enable 2FA
+        </button>
+
+        <a href="/profile" id="btn_back" >
+            <p style="margin-top: 2rem;color: var(--primary)">Back</p>
+        </a>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/my-assets/js/loading.js"></script>
+<script src="/my-assets/js/alert-notification.js"></script>
+<script>
+    $('#btn_enable').click(function () {
+        Update2FA(true)
+    })
+
+    $('#btn_disable').click(function () {
+        Update2FA(false)
+    })
+
+    function Update2FA(is_2fa_enable) {
+        $.ajax({
+            type: 'post',
+            url: '/two-factor-authentication/enable',
+            beforeSend: Loading(true),
+            data: {is_2fa_enable},
+            success: function (response) {
+                setTimeout(() => {
+                    if (response.code === 200) {
+                        Alert.Show('success', response.message)
+                    } else {
+                        Alert.Show('danger', response.message)
+                    }
+                    Loading(false)
+                    if (is_2fa_enable) {
+                        $('#btn_disable').attr('hidden', false)
+                        $('#btn_enable').attr('hidden', true)
+                    } else {
+                        $('#btn_disable').attr('hidden', true)
+                        $('#btn_enable').attr('hidden', false)
+                    }
+                }, 1500)
+            },
+            error: function () {
+                Loading(false)
+                Alert.Show('danger', 'Something went wrong!')
+            }
+        })
+    }
+</script>
+</html>

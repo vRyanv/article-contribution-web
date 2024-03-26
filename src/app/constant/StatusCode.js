@@ -6,5 +6,6 @@ module.exports = {
     VERIFY: 204,
     NOT_FOUND: 404,
     UNAUTHORIZED: 401,
-    BAD_REQUEST: 400
+    BAD_REQUEST: 400,
+    TWO_FACTOR_AUTH: 205
 }
