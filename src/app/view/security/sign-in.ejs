@@ -50,6 +50,9 @@
 <script src="/my-assets/js/loading.js"></script>
 
 <script>
+    if($.cookie('user_token')){
+        location.href = '/'
+    }
     $('#login_form').submit(function (e) {
         e.preventDefault()
         const email = $('#email').val()
@@ -66,7 +69,7 @@
                         if (response.role === 'STUDENT') {
                             location.href = '/student/magazine'
                         } else if (response.role === 'ADMIN') {
-                            location.href = '/admin/dashboard'
+                            location.href = '/dashboard'
                         } else if (response.role === 'COORDINATOR') {
                             location.href = '/coordinator/magazine'
                         } else if (response.role === 'MARKETING MANAGER') {
