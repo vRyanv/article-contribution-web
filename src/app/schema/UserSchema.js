@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     faculty: {
         type: Schema.Types.ObjectId,
         ref: 'Faculty',
-        required: false
+        required: true
     },
     deleted: {type:Boolean, default: false},
     is_2fa_enable: {type: Boolean, default: false},

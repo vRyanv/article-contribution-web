@@ -96,7 +96,7 @@ $(document).ready(function () {
         GetStatisticalContributionFaculties(magazine_id){
             return new Promise((resolve, reject) => {
                 $.ajax({
-                    url: `/admin/dashboard/statistical-contribution-faculties/${magazine_id}`,
+                    url: `/dashboard/statistical-contribution-faculties/${magazine_id}`,
                     type: 'GET',
                     success: function (response) {
                         resolve(response)
@@ -110,7 +110,7 @@ $(document).ready(function () {
         GetStatisticalContributeYears(faculty_id){
             return new Promise((resolve, reject) => {
                 $.ajax({
-                    url: `/admin/dashboard/statistical-contribution-years/${faculty_id}`,
+                    url: `/dashboard/statistical-contribution-years/${faculty_id}`,
                     type: 'GET',
                     success: function (response) {
                         resolve(response)

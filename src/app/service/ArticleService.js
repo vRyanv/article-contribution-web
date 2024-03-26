@@ -5,6 +5,9 @@ const FacultyService = require('./FacultyService')
 const MagazineService = require('./MagazineService')
 
 const ArticleService = {
+    GetAllArticleAccepted(){
+        return ArticleRepository.GetAllAcceptedArticle()
+    },
     CountArticleQuantity(){
       return ArticleRepository.GetArticleQuantity()
     },

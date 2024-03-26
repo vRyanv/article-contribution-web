@@ -15,6 +15,7 @@ const TwoFactorAuthRouter = require('./TwoFactorAuthRouter')
 
 const Auth = require('../middleware/Auth')
 const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER, GUEST} = require("../constant/Roles");
+const DashboardRouter = require("./admin/DashboardRouter");
 
 module.exports = (app) => {
     app.use('/security', SecurityRouter)
@@ -49,6 +50,12 @@ module.exports = (app) => {
     )
 
     app.use(
+        '/dashboard',
+        (req, res, next) => Auth.Authorize(req, res, next, [GUEST, ADMIN]),
+        DashboardRouter
+    )
+
+    app.use(
         '/comment',
         (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR]),
         CommentRouter
@@ -62,7 +69,7 @@ module.exports = (app) => {
 
     app.use(
         '/profile',
-        (req, res, next) => Auth.Authorize(req, res, next, [STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next, [GUEST, STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
         ProfileRouter
     )
 

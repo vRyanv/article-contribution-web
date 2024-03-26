@@ -6,6 +6,7 @@ const AccountController = {
     async AccountManagementPage(req, res) {
         const account_list = await UserService.GetAccountList()
         const role = req.user.role
+        console.log(account_list)
         const data = {
             page_title: 'Account',
             account_list,
@@ -20,7 +21,7 @@ const AccountController = {
         )
     },
     async NewAccountPage(req, res) {
-        const role_list = [Roles.STUDENT, Roles.COORDINATOR, Roles.MARKETING_MANAGER]
+        const role_list = [Roles.GUEST, Roles.STUDENT, Roles.COORDINATOR, Roles.MARKETING_MANAGER]
         const faculty_list = await FacultyService.GetFacultyList()
         const role = req.user.role
         const data = {
@@ -52,7 +53,7 @@ const AccountController = {
         return res.status(200).json({code: BAD_REQUEST, message: 'creating account failed'})
     },
     async EditAccountPage(req, res) {
-        const role_list = [Roles.STUDENT, Roles.COORDINATOR, Roles.MARKETING_MANAGER]
+        const role_list = [Roles.GUEST, Roles.STUDENT, Roles.COORDINATOR, Roles.MARKETING_MANAGER]
         const faculty_list = await FacultyService.GetFacultyList()
         const account = await UserService.GetAccountById(req)
 
