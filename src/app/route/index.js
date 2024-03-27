@@ -18,6 +18,15 @@ const {COORDINATOR, STUDENT, ADMIN, MARKETING_MANAGER, GUEST} = require("../cons
 const DashboardRouter = require("./admin/DashboardRouter");
 
 module.exports = (app) => {
+    app.get('/', (req, res) => {
+        return res.render(
+            'index',
+            {
+                layout: false
+            }
+        )
+    })
+
     app.use('/security', SecurityRouter)
     app.use('/register', RegisterRouter)
 

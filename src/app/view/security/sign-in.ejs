@@ -19,11 +19,11 @@
 <%- include('../partials/loading') %>
 
 <div class="container-fluid">
-    <div class="row justify-content-center" style="padding: 3rem">
-        <div class="col-sm-12 col-md-5 col-lg-4">
+    <div class="row justify-content-center " style="padding: 3rem">
+        <div class="d-none d-md-block d-lg-block d-xl-block col-sm-12 col-md-5 col-lg-4 me-5">
             <img class="img-fluid" src="/my-assets/media/decoration/blog.svg" alt="sing up image">
         </div>
-        <div class="col-sm-12 col-md-5 col-lg-3 mt-5 ms-5">
+        <div class="col-sm-12 col-md-5 col-lg-3 mt-5">
             <h2 class="form-title ">Sign In</h2>
             <form id="login_form" class="mt-5">
                 <div class="mb-3">
@@ -50,9 +50,6 @@
 <script src="/my-assets/js/loading.js"></script>
 
 <script>
-    if($.cookie('user_token')){
-        location.href = '/'
-    }
     $('#login_form').submit(function (e) {
         e.preventDefault()
         const email = $('#email').val()
