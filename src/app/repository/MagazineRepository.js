@@ -13,7 +13,7 @@ const MagazineRepository = {
     },
     GetMagazineList(){
         return Magazine.find({deleted:false})
-            .sort({start_academic_year: 'desc'})
+            .sort({createdAt: 'desc'})
             .lean()
     },
     FindById(id){

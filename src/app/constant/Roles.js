@@ -5,3 +5,4 @@ module.exports = {
     MARKETING_MANAGER: "MARKETING MANAGER",
     GUEST: "GUEST",
 }
+

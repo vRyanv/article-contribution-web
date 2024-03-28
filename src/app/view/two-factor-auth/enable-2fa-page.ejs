@@ -21,6 +21,7 @@
     <h1 style="color: var(--primary);">UMagazine</h1>
     <h3>Two-Factor Authentication (2FA)</h3>
     <p>Scan this QR code and then click enable button</p>
+    <p>Your email: <strong><%= email %></strong></p>
     <img src="<%= QRCodeImg %>" alt="qr code">
     <div style="margin-top: 1.5rem">
         <button <%= is_2fa_enable ? '' : 'hidden' %> class="btn btn-danger" id="btn_disable" >

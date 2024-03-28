@@ -6,7 +6,6 @@ const TwoFactorAuthController = {
     async Verify(req, res){
         const {email, token} = req.body
         const user = await UserRepository.FindByEmail(email)
-        console.log(user)
         if(user){
             const is_valid = Authenticator.VerifyOTPToken(token, user.secret)
             if(is_valid){
@@ -49,7 +48,8 @@ const TwoFactorAuthController = {
             {
                 layout: false,
                 QRCodeImg,
-                is_2fa_enable
+                is_2fa_enable,
+                email
             }
         )
     },
