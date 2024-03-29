@@ -1,6 +1,6 @@
 const {ArticleService, CommentService, MagazineService, UserService} = require("../../service");
 const {StatusCode, MagazineStatus} = require("../../constant");
-const {MailUtil}  = require('../../utils')
+const {MailUtil} = require('../../utils')
 
 const ArticleStudentController = {
     async DeleteArticle(req, res) {
@@ -98,7 +98,7 @@ const ArticleStudentController = {
 
         const mail_coordinator = await UserService.GetMailOfCoordinator()
 
-        if(mail_coordinator){
+        if (mail_coordinator) {
             const student_mail = req.user.email
             const content = `student with email address ${student_mail} has submitted a new article, you have 14 days to comment
                              <a href="http://localhost/coordinator/contribution/detail/${article._id.toString()}">Click here to go to the article</a>`
@@ -114,10 +114,14 @@ const ArticleStudentController = {
             }
             console.log('mail_info', mail_info)
             console.log('MailUtil', MailUtil)
-            try{
-                const result_send_mail = await MailUtil.Send(from_mail, to_mail, subject, content)
-                console.log(result_send_mail)
-            } catch (error){
+            try {
+                MailUtil.Send(from_mail, to_mail, subject, content)
+                    .then(result => {
+                        console.log(result)
+                    }).catch(error => {
+                    console.log(error)
+                })
+            } catch (error) {
                 console.log(error)
             }
         }

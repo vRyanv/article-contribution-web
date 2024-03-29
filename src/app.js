@@ -7,7 +7,9 @@ const morgan = require('morgan')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const app = express()
+const compression = require('compression')
 
+app.use(compression())
 //[GET] image from public
 app.use(express.static(path.join(__dirname, 'public')))
 
