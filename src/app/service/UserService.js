@@ -29,8 +29,8 @@ const UserService = {
         }
 
     },
-    GetMailOfCoordinator(){
-        return UserRepository.FindMailOfCoordinator()
+    GetMailOfCoordinator(faculty_id){
+        return UserRepository.FindMailOfCoordinator(faculty_id)
     },
     CountStudentQuantity(){
       return UserRepository.GetStudentQuantity()

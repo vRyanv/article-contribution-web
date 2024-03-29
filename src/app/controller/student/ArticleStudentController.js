@@ -96,8 +96,9 @@ const ArticleStudentController = {
             return res.status(200).json({code: StatusCode.BAD_REQUEST, message: 'creating article failed!'})
         }
 
-        const mail_coordinator = await UserService.GetMailOfCoordinator()
-
+        const mail_coordinator = await UserService.GetMailOfCoordinator(req.user.faculty._id)
+        console.log(mail_coordinator)
+        console.log(req.user.faculty._id)
         if (mail_coordinator) {
             const student_mail = req.user.email
             const content = `student with email address ${student_mail} has submitted a new article, you have 14 days to comment
@@ -106,14 +107,7 @@ const ArticleStudentController = {
             const from_mail = 'The system mail'
             const to_mail = mail_coordinator.email
             const subject = 'Student submit article'
-            const mail_info = {
-                from_mail,
-                to_mail,
-                subject,
-                content
-            }
-            console.log('mail_info', mail_info)
-            console.log('MailUtil', MailUtil)
+
             try {
                 MailUtil.Send(from_mail, to_mail, subject, content)
                     .then(result => {

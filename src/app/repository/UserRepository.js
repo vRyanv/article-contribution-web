@@ -9,8 +9,11 @@ const UserRepository = {
     GetUserListForChat(roles){
         return User.find({role: {$in: roles}, deleted: false}).lean()
     },
-    FindMailOfCoordinator(){
-        return User.findOne({role: Roles.COORDINATOR}).select('email').lean()
+    FindMailOfCoordinator(faculty_id){
+        return User.findOne({
+            role: Roles.COORDINATOR,
+            faculty: faculty_id
+        }).select('email').lean()
     },
     GetStudentQuantity(){
         return User.countDocuments({role: Roles.STUDENT})
