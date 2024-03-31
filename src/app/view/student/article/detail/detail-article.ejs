@@ -60,6 +60,7 @@ if(data.article.status === 'ACCEPTED' || data.article.status === 'REFUSED' || hi
                             <form id="article_form">
                                 <input type="hidden" value="<%= data.article._id %>" name="article_id" id="article_id">
                                 <label class="form-label title-field mt-3">Magazine</label>
+                                <input type="hidden" id="magazine_id" value="<%= data.article.magazine._id %>">
                                 <a href="/student/magazine/detail/<%= data.article.magazine._id %>">
                                     <p><%= data.article.magazine.title %>
                                         <%
@@ -195,6 +196,7 @@ if(data.article.status === 'ACCEPTED' || data.article.status === 'REFUSED' || hi
     })
 
 </script>
+<script src="/my-assets/js/util.js"></script>
 <script src="/my-assets/js/student/article-detail-controller.js"></script>
 <script src="/my-assets/js/comment-controller.js"></script>
 

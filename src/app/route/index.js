@@ -27,6 +27,15 @@ module.exports = (app) => {
         )
     })
 
+    app.get('/help-center', (req, res) => {
+        return res.render(
+            'help/help-center',
+            {
+                layout: false
+            }
+        )
+    })
+
     app.use('/security', SecurityRouter)
     app.use('/register', RegisterRouter)
 

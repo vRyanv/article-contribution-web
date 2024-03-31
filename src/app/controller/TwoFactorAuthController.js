@@ -5,6 +5,7 @@ const {StatusCode} = require('../constant')
 const TwoFactorAuthController = {
     async Verify(req, res){
         const {email, token} = req.body
+        console.log(req.body)
         const user = await UserRepository.FindByEmail(email)
         if(user){
             const is_valid = Authenticator.VerifyOTPToken(token, user.secret)

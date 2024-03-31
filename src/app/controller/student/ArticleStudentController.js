@@ -97,8 +97,6 @@ const ArticleStudentController = {
         }
 
         const mail_coordinator = await UserService.GetMailOfCoordinator(req.user.faculty._id)
-        console.log(mail_coordinator)
-        console.log(req.user.faculty._id)
         if (mail_coordinator) {
             const student_mail = req.user.email
             const content = `student with email address ${student_mail} has submitted a new article, you have 14 days to comment

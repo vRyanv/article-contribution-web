@@ -3,6 +3,7 @@ $(document).ready(function () {
         filename_delete: '',
         dropzone: null,
         article_id: $('#article_id').val(),
+        magazine_id: $('#magazine_id').val(),
         EventListener() {
             $('#btn_delete_article').click(function (){
                 $('#btn_open_confirm_delete_article_modal').click()
@@ -170,7 +171,6 @@ $(document).ready(function () {
         },
         DeleteArticle(){
             const article_id = ArticleDetailController.article_id
-
             $.ajax({
                 url: '/student/article/delete',
                 type: "DELETE",
@@ -179,7 +179,7 @@ $(document).ready(function () {
                 success: function (res) {
                     setTimeout(() => {
                         if (res.code === 203) {
-                            location.reload()
+                            location.href = `/student/magazine/detail/${ArticleDetailController.magazine_id}`
                         } else {
                             Alert.Show('warning', res.message)
                         }
