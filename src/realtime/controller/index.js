@@ -1,5 +1,5 @@
-const ChatController = require('./ChatController')
+const SocketController = require('./SocketController')
 
 module.exports = {
-    ChatController
+    SocketController
 }

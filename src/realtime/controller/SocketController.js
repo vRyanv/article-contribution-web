@@ -1,5 +1,5 @@
 const ChatRepository = require('../repository/ChatRepository')
-const ChatController = (socket) => {
+const SocketController = (socket) => {
     console.log('connection::', socket.id)
 
     const message = async (data) => {
@@ -44,4 +44,4 @@ const ChatController = (socket) => {
     socket.on('disconnect', disconnect);
 }
 
-module.exports = ChatController
+module.exports = SocketController

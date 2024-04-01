@@ -24,7 +24,6 @@ const SecurityController = require('./SecurityController')
 const CommentController = require('./CommentController')
 const ChatController = require('./ChatController')
 const GuestController = require('./GuestController')
-const RegisterController = require('./RegisterController')
 const TwoFactorAuthController = require('./TwoFactorAuthController')
 
 module.exports = {
@@ -38,7 +37,6 @@ module.exports = {
     ClientController,
     DashboardController,
     SecurityController,
-    RegisterController,
     MagazineController,
     FacultyController,
     AccountController,

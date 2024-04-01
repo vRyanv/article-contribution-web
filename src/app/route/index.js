@@ -9,7 +9,6 @@ const DownloadRouter = require('./DownloadRouter')
 const ProfileRouter = require('./ProfileRouter')
 const ChatRouter = require('./ChatRouter')
 const GuestRoute = require('./GuestRoute')
-const RegisterRouter = require('./RegisterRoute')
 const TwoFactorAuthRouter = require('./TwoFactorAuthRouter')
 
 
@@ -37,7 +36,7 @@ module.exports = (app) => {
     })
 
     app.use('/security', SecurityRouter)
-    app.use('/register', RegisterRouter)
+
 
     app.use(
         '/student',

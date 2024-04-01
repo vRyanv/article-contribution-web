@@ -43,7 +43,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 global.__user_sockets = []
-const {ChatController} = require('./realtime/controller')
+const {SocketController} = require('./realtime/controller')
 const {JWT} = require("./app/utils");
 io.use((socket, next) => {
     const token = socket.handshake.query.token
@@ -58,7 +58,7 @@ io.use((socket, next) => {
 })
 
 io.on('connection', function (socket){
-    ChatController(socket)
+    SocketController(socket)
 })
 // require('./realtime/handler')(io)
 
