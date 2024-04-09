@@ -8,6 +8,7 @@ const DashboardRouter = require('./DashboardRouter')
 
 
 
+route.use('/dashboard', DashboardRouter)
 route.use('/magazine', MagazineRouter)
 route.use('/account', AccountRouter)
 route.use('/faculty', FacultyRouter)

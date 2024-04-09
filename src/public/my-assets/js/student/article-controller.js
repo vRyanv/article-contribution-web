@@ -74,6 +74,11 @@ $(document).ready(function () {
             });
         },
         ValidateArticleFormForCreate() {
+            if (!$('#cb_term_privacy').is(':checked')) {
+                Alert.Show('warning', 'Please allow the term and privacy to contribute your article')
+                return false
+            }
+
             const thumbnail = $('#input_thumb')[0].files[0]
             if ($('#input_thumb')[0].files.length === 0) {
                 Alert.Show('warning', 'Thumbnail is required')

@@ -34,22 +34,33 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" autocomplete required>
                 </div>
+                <div style="text-align: -webkit-right;">
+                    <a href="#">
+                    <p style="width: fit-content; color: #FF7900" id="btn_forgot_pass">Forgot password?</p>
+                    </a>
+                </div>
                 <button style="width: 100%" type="submit" class="btn btn-primary mt-5" id="btn_login">Login</button>
             </form>
         </div>
     </div>
 </div>
+<%- include('./partials/forgot-pass-modal') %>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
         integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="/my-assets/js/alert-notification.js"></script>
 <script src="/my-assets/js/loading.js"></script>
 
 <script>
+    $('#btn_forgot_pass').click(function (){
+        $('#btn_open_forgot_pass_modal').click()
+    })
+
     $('#login_form').submit(function (e) {
         e.preventDefault()
         const email = $('#email').val()
@@ -66,7 +77,7 @@
                         if (response.role === 'STUDENT') {
                             location.href = '/student/magazine'
                         } else if (response.role === 'ADMIN') {
-                            location.href = '/dashboard'
+                            location.href = '/admin/dashboard'
                         } else if (response.role === 'COORDINATOR') {
                             location.href = '/coordinator/magazine'
                         } else if (response.role === 'MARKETING MANAGER') {
@@ -89,6 +100,35 @@
                 }, 1500)
             }
         })
+    })
+
+    $('#forgot_pass_form').submit(function (e){
+        e.preventDefault()
+        const email = $('#input_forgot_email').val()
+
+        $.ajax({
+            url: '/security/forgot-pass',
+            type: 'post',
+            data: {email},
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 200) {
+                        location.href = `/security/reset-password/${email}`
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: (error) => {
+                setTimeout(() => {
+                    Alert.Show('warning', 'something went wrong!')
+                    Loading(false)
+                }, 1500)
+            }
+        })
+
     })
 </script>
 </html>

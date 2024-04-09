@@ -105,6 +105,11 @@
 <%- contentFor('script') %>
 <script src="/my-assets/js/lib/dropzone-min.js"></script>
 <script src="/my-assets/js/student/article-controller.js"></script>
+<script>
+    $('#btn_term_privacy').click(function (){
+        window.open('/term-and-privacy')
+    })
+</script>
 
 <%- contentFor('style') %>
 <link href="/my-assets/css/dropzone.css" rel="stylesheet" type="text/css"/>

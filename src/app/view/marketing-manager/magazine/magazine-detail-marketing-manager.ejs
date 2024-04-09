@@ -88,6 +88,14 @@ if (data.magazine.is_closure || data.magazine.is_final_closure) {
                     <div class="col-sm-6 col-xl-6">
                         <h6>Article Contributed</h6>
                     </div>
+                    <div class="col-sm-6 col-xl-6" style="text-align: end">
+                        <a href="/download/all-files/<%= data.magazine._id %>">
+                        <button class="btn btn-success" id="btn_download_all_article_all_faculty">
+                            <i class="fas fa-download me-2"></i>
+                            Download all article of faculties
+                        </button>
+                        </a>
+                    </div>
                 </div>
                 <%- include('./partials/faculty-contribute-table', {faculty_list:data.faculty_list, magazine_id: data.magazine._id}) %>
             </div>

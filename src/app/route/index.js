@@ -35,6 +35,15 @@ module.exports = (app) => {
         )
     })
 
+    app.get('/term-and-privacy', (req, res) => {
+        return res.render(
+            'term_privacy',
+            {
+                layout: false
+            }
+        )
+    })
+
     app.use('/security', SecurityRouter)
 
 
@@ -45,7 +54,7 @@ module.exports = (app) => {
     )
     app.use(
         '/guest',
-        (req, res, next) => Auth.Authorize(req, res, next, [GUEST, STUDENT, COORDINATOR, MARKETING_MANAGER, ADMIN]),
+        (req, res, next) => Auth.Authorize(req, res, next, [GUEST]),
         GuestRoute
     )
     app.use(
@@ -64,12 +73,6 @@ module.exports = (app) => {
         '/admin',
         (req, res, next) => Auth.Authorize(req, res, next, [ADMIN]),
         AdminRouter
-    )
-
-    app.use(
-        '/dashboard',
-        (req, res, next) => Auth.Authorize(req, res, next, [GUEST, ADMIN]),
-        DashboardRouter
     )
 
     app.use(

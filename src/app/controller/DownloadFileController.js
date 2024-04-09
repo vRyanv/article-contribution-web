@@ -6,6 +6,32 @@ const {ArticleRepository} = require("../repository");
 
 
 const DownloadFileController = {
+    async AllFileOfFaculties(req, res){
+        const {magazine_id} = req.params
+        let article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
+        if(!article_list){
+            return res.redirect('/404')
+        }
+        const zip = new AdmZip();
+        article_list.map(article => {
+            article.files.map( file => {
+                const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file.filename)
+                try{
+                    zip.addLocalFile(full_path);
+                } catch (error){
+                    console.log(error)
+                }
+            })
+        })
+
+        const fileName = `all-contribution.zip`;
+        const fileType = MimeType.ZIP
+        res.writeHead(200, {
+            'Content-Disposition': `attachment; filename="${fileName}"`,
+            'Content-Type': fileType,
+        })
+        return res.end(zip.toBuffer());
+    },
     OneFileDownload(req, res){
         const {file_name} = req.params
         const zip = new AdmZip();

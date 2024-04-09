@@ -109,7 +109,7 @@ const ArticleStudentController = {
             try {
                 MailUtil.Send(from_mail, to_mail, subject, content)
                     .then(result => {
-                        console.log(result)
+                        console.log('result', result)
                     }).catch(error => {
                     console.log(error)
                 })

@@ -8,5 +8,12 @@ module.exports = {
     },
     Compare(string, hash){
         return bcrypt.compare(string, hash)
+    },
+    GenerateOTP(){
+        let otp = '';
+        for (let i = 0; i < 6; i++) {
+            otp += Math.floor(Math.random() * 10);
+        }
+        return otp;
     }
 }

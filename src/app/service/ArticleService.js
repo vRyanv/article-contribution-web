@@ -5,6 +5,41 @@ const FacultyService = require('./FacultyService')
 const MagazineService = require('./MagazineService')
 
 const ArticleService = {
+    GetAllContributors(){
+        return ArticleRepository.GetAllContributors()
+    },
+    async StatisticalForContributeOfYearOfGuest(faculty_id){
+        const magazine_list = await MagazineService.GetMagazineListForAdmin()
+        let article_list = await ArticleRepository.GetAllArticleForAdmin()
+        article_list = article_list.filter(article => {
+            return article.student.faculty.toString() === faculty_id
+        })
+        const statistical_Contribute_year_data = []
+        magazine_list.map(magazine => {
+            const article_belong_magazine = article_list.filter(article => {
+                return article.magazine._id.toString() === magazine._id.toString()
+            })
+            const academic_year = magazine.start_academic_year + ' - ' + magazine.end_academic_year
+            statistical_Contribute_year_data.push({
+                academic_year,
+                article_quantity: article_belong_magazine.length
+            })
+        })
+
+        return statistical_Contribute_year_data
+    },
+    async StatisticalForContributeOfFacultyOfGuest(faculty_id){
+            try {
+                let  article_list = await ArticleRepository.GetAllArticle()
+                article_list = article_list.filter(article => {
+                    return article.student.faculty.toString() === faculty_id
+                })
+                return article_list.length
+            } catch (error) {
+                console.log(error)
+                return false
+            }
+    },
     GetAllArticleAccepted(){
         return ArticleRepository.GetAllAcceptedArticle()
     },

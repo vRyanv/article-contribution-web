@@ -4,6 +4,9 @@ const {ACCEPTED} = require("../constant/ArticleStatus");
 const Article = mongoose.model("Article", ArticleSchema);
 
 const ArticleRepository = {
+    GetAllContributors(){
+        return Article.find({}).distinct('student').lean()
+    },
     GetArticleQuantity(){
         return Article.countDocuments()
     },
@@ -46,7 +49,10 @@ const ArticleRepository = {
     GetAllArticleMagazine(magazine_id) {
         return Article.find({magazine: magazine_id})
             .sort({createdAt: 'desc'})
-            .populate('student')
+            .populate({
+                path: 'student',
+                populate: 'faculty'
+            })
             .lean()
     },
     FindOneAndDeleteStudentArticle(student_id, article_id) {
