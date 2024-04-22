@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     deleted: {type:Boolean, default: false},
     is_2fa_enable: {type: Boolean, default: false},
     secret: {type: String, required: true},
-    OTP:  {type: String, required: true}
+    OTP:  {type: String, default: ""}
 }, {timestamps: true})
 
 module.exports = UserSchema
