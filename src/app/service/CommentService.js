@@ -1,36 +1,53 @@
 const {CommentRepository, ArticleRepository} = require('../repository')
 const {DateUtil} = require("../utils");
 const CommentService = {
-    async ArticleExceptionCommentQuantity(magazine_id) {
-        // article comment
+    async ArticleWithoutCommentQuantity(magazine_id) {
+        let article_list = await ArticleRepository.GetAllArticle()
         let article_comment = await CommentRepository.GetArticleComment()
+        const article_comment_id = []
+        article_comment.map(art_cmt => {
+            article_comment_id.push(art_cmt._id.toString())
+        })
+
+        article_list = article_list.filter(artilce => {
+            return !article_comment_id.includes(artilce._id.toString()) 
+        })
+
+        article_list =  article_list.filter(article => {
+            const number_of_date_remain = DateUtil.NumberOfDaysRemaining(article.createdAt, 14)
+            return number_of_date_remain >= 0
+        })
+
         if (magazine_id !== 'all') {
-            article_comment = article_comment.filter(artilce => {
+            article_list = article_list.filter(artilce => {
                 return artilce.magazine.toString() === magazine_id
             })
         }
-        const article_comment_quantity = article_comment.length
-
-        //article not comment
+        return article_list.length
+    },
+    async ArticleWithoutCommentAfater14Quantity(magazine_id) {
         let article_list = await ArticleRepository.GetAllArticle()
+        let article_comment = await CommentRepository.GetArticleComment()
+        const article_comment_id = []
+        article_comment.map(art_cmt => {
+            article_comment_id.push(art_cmt._id.toString())
+        })
+
+        article_list = article_list.filter(artilce => {
+            return !article_comment_id.includes(artilce._id.toString())
+        })
+    
+        article_list =  article_list.filter(article => {
+            const number_of_date_remain = DateUtil.NumberOfDaysRemaining(article.createdAt, 14)
+            return number_of_date_remain <= 0
+        })
         if (magazine_id !== 'all') {
-            article_list = article_list.filter(article => {
-                return article.magazine.toString() === magazine_id
+            article_list = article_list.filter(artilce => {
+                return artilce.magazine.toString() === magazine_id
             })
         }
+        return article_list.length
 
-        const id_article_not_comment = article_comment.map(id => {
-            return id.toString()
-        })
-        const article_not_comment_list = article_list.filter(article => {
-            const number_of_date_remain = DateUtil.NumberOfDaysRemaining(article.createdAt, 14)
-            return !id_article_not_comment.includes(article._id.toString()) && number_of_date_remain <= 0
-        })
-
-        return {
-            article_comment_quantity,
-            article_not_comment_after_14_day_quantity: article_not_comment_list.length
-        }
     },
     async Create(req) {
         const user_id = req.user.id

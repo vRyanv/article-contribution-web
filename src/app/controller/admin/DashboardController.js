@@ -6,7 +6,6 @@ const DashboardController = {
         const faculty_list = await FacultyService.GetFacultyList()
         const all_student_quantity = await UserService.CountStudentQuantity()
         const all_contribute_quantity = await ArticleService.CountArticleQuantity()
-        const contributors = await ArticleService.GetAllContributors()
         const role = req.user.role
 
         const data = {
@@ -15,7 +14,6 @@ const DashboardController = {
             faculty_list,
             all_student_quantity,
             all_contribute_quantity,
-            contributors_quantity: contributors.length,
             role
         }
         return res.render(
@@ -36,11 +34,15 @@ const DashboardController = {
     },
     async StatisticalExceptionComment(req, res){
         const {magazine_id} = req.params
-        const {
-            article_comment_quantity,
-            article_not_comment_after_14_day_quantity
-        } = await CommentService.ArticleExceptionCommentQuantity(magazine_id)
-        return res.status(200).json({code:StatusCode.OK, article_comment_quantity, article_not_comment_after_14_day_quantity})
+      
+        const article_without_comment_quantity = await CommentService.ArticleWithoutCommentQuantity(magazine_id)
+        const article_not_comment_after_14_day_quantity = await CommentService.ArticleWithoutCommentAfater14Quantity(magazine_id)
+        return res.status(200).json({code:StatusCode.OK, article_without_comment_quantity, article_not_comment_after_14_day_quantity})
+    },
+    async StatisticalContributor(req, res){
+        const {magazine_id} = req.params
+        const statistical_contributor = await ArticleService.GetAllContributors(magazine_id)
+        return res.status(200).json({code:StatusCode.OK, statistical_contributor})
     }
 }
 

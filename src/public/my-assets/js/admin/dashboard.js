@@ -9,6 +9,7 @@ $(document).ready(function () {
         contribution_year_chart: null,
         percentage_contribution_chart: null,
         exception_comment_chart: null,
+        contributor_chart: null,
         SetUpChart() {
             const ctx_article = $("#contribution_faculties_chart").get(0).getContext("2d");
             DashboardController.contribution_faculties_chart = new Chart(ctx_article, {
@@ -51,6 +52,15 @@ $(document).ready(function () {
                 }
             });
 
+            const ctx_contributor = $("#contributors_chart").get(0).getContext("2d");
+            DashboardController.contributor_chart = new Chart(ctx_contributor, {
+                type: "bar",
+                data: {},
+                options: {
+                    responsive: true
+                }
+            });
+
         },
         EventListener() {
             $('#input_faculty').change(function () {
@@ -84,14 +94,35 @@ $(document).ready(function () {
                 Loading(true)
                 DashboardController.GetStatisticalExceptionComment(magazine_id)
                     .then((response) => {
+                        console.log(response);
                         setTimeout(() => {
-                            const {article_comment_quantity, article_not_comment_after_14_day_quantity} = response
+                            const {article_without_comment_quantity, article_not_comment_after_14_day_quantity} = response
+                        
                             DashboardController.RenderExceptionCommentChart(
-                                article_comment_quantity,
+                                article_without_comment_quantity,
                                 article_not_comment_after_14_day_quantity)
                             Loading(false)
                         }, 1500)
+                    }).catch(error=>{
+                        console.log(error);
                     })
+            })
+
+            $('#input_magazine_contributor').change(function(){
+                const magazine_id = $(this).val()
+                Loading(true)
+                DashboardController.GetStatisticalContributor(magazine_id)
+                .then((response) => {
+                    console.log(response);
+                    setTimeout(() => {
+                        const {statistical_contributor} = response
+                    
+                        DashboardController.RenderContributeContributorChart(statistical_contributor)
+                        Loading(false)
+                    }, 1500)
+                }).catch(error=>{
+                    console.log(error);
+                })
             })
         },
         RenderContributeFacultyAndPercentageChart(statistical) {
@@ -166,12 +197,12 @@ $(document).ready(function () {
             DashboardController.contribution_year_chart.data = data_chart
             DashboardController.contribution_year_chart.update()
         },
-        RenderExceptionCommentChart(article_comment_quantity, article_not_comment_after_14_day_quantity){
+        RenderExceptionCommentChart(article_without_comment_quantity, article_not_comment_after_14_day_quantity){
             const data_chart = {
                 labels: ['Contributions without a comment', 'Contributions without a comment after 14 days'],
                 datasets: [{
                     label: "Contribution",
-                    data: [article_comment_quantity, article_not_comment_after_14_day_quantity],
+                    data: [article_without_comment_quantity, article_not_comment_after_14_day_quantity],
                     backgroundColor: [
                         'rgb(0, 128, 0, .2)',
                         'rgb(255, 0, 0, .2)'
@@ -184,6 +215,30 @@ $(document).ready(function () {
             }
             DashboardController.exception_comment_chart.data = data_chart
             DashboardController.exception_comment_chart.update()
+        },
+        RenderContributeContributorChart(statistical_contributor){
+            console.log(statistical_contributor)
+            const labels = []
+            const data = []
+            statistical_contributor.map(faculty => {
+                labels.push(faculty.name)
+                data.push(faculty.contributors)
+            })
+            const data_chart = {
+                labels,
+                datasets: [{
+                    label: "Contributors",
+                    data,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(54, 162, 235)',
+                    ]
+                }]
+            }
+            DashboardController.contributor_chart.data = data_chart
+            DashboardController.contributor_chart.update()
         },
         GetStatisticalContributionFaculties(magazine_id) {
             return new Promise((resolve, reject) => {
@@ -227,12 +282,28 @@ $(document).ready(function () {
                 })
             });
         },
+        GetStatisticalContributor(magazine_id){
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: `/admin/dashboard/statistical-contributor/${magazine_id}`,
+                    type: 'GET',
+                    success: function (response) {
+                        resolve(response)
+                    },
+                    error: function (error) {
+                        reject(error)
+                    }
+                })
+            });
+            
+        },
         GetFirstStatistical() {
             Loading(true)
             const contribute_of_faculty = DashboardController.GetStatisticalContributionFaculties('all')
             const contribute_of_years = DashboardController.GetStatisticalContributeYears('all')
             const exception_comment = DashboardController.GetStatisticalExceptionComment('all')
-            Promise.all([contribute_of_faculty, contribute_of_years, exception_comment])
+            const contributor = DashboardController.GetStatisticalContributor('all')
+            Promise.all([contribute_of_faculty, contribute_of_years, exception_comment, contributor])
                 .then((results) => {
                     setTimeout(() => {
                         const {statistical_contribute_faculty_data} = results[0]
@@ -241,11 +312,14 @@ $(document).ready(function () {
                         const {statistical_Contribute_year_data} = results[1]
                         DashboardController.RenderContributeYearChart(statistical_Contribute_year_data)
 
-                        const {article_comment_quantity, article_not_comment_after_14_day_quantity} = results[2]
+                        const {article_without_comment_quantity, article_not_comment_after_14_day_quantity} = results[2]
                         DashboardController.RenderExceptionCommentChart(
-                            article_comment_quantity,
+                            article_without_comment_quantity,
                             article_not_comment_after_14_day_quantity
                         )
+
+                        const {statistical_contributor} = results[3]
+                        DashboardController.RenderContributeContributorChart(statistical_contributor)
 
                         Loading(false)
                     }, 1500)

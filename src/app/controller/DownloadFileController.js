@@ -1,5 +1,5 @@
 const AdmZip = require('adm-zip')
-const {StoragePath, MimeType} = require('../constant')
+const {StoragePath, MimeType,ArticleStatus} = require('../constant')
 const {FileUtil} = require('../utils')
 const {ArticleCoordinatorService, FacultyService} = require('../service')
 const {ArticleRepository} = require("../repository");
@@ -14,14 +14,16 @@ const DownloadFileController = {
         }
         const zip = new AdmZip();
         article_list.map(article => {
-            article.files.map( file => {
-                const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file.filename)
-                try{
-                    zip.addLocalFile(full_path);
-                } catch (error){
-                    console.log(error)
-                }
-            })
+            if(article.status === ArticleStatus.ACCEPTED){
+                article.files.map( file => {
+                    const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file.filename)
+                    try{
+                        zip.addLocalFile(full_path);
+                    } catch (error){
+                        console.log(error)
+                    }
+                })
+            }
         })
 
         const fileName = `all-contribution.zip`;
@@ -76,14 +78,16 @@ const DownloadFileController = {
     async FacultyAllFilesDownload(req, res){
         const {magazine_id} = req.params
         const faculty = await FacultyService.GetFacultyById(req)
+        console.log(faculty);
         if(!faculty){
             return res.redirect('/404')
         }
         let article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
-
-        article_list = article_list.filter(article => article.student.faculty.toString() === faculty._id.toString())
+        console.log(article_list);
+        article_list = article_list.filter(article => article.student.faculty._id.toString() === faculty._id.toString() && article.status === ArticleStatus.ACCEPTED)
 
         const zip = new AdmZip();
+
         article_list.map(article => {
             article.files.map( file => {
                 const full_path = FileUtil.GetFullPathOfFile(StoragePath.ARTICLE_STORAGE_PATH + file.filename)

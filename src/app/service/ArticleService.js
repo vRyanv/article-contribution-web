@@ -5,8 +5,40 @@ const FacultyService = require('./FacultyService')
 const MagazineService = require('./MagazineService')
 
 const ArticleService = {
-    GetAllContributors(){
-        return ArticleRepository.GetAllContributors()
+    async GetAllContributors(magazine_id){
+        const faculty_list = await FacultyService.GetFacultyList()
+        const article_list = await ArticleRepository.GetAllArticle()
+
+        faculty_list.map(faculty => {
+            faculty.contributors = []
+        })
+
+        if(magazine_id == 'all'){
+            article_list.map(article =>{
+                faculty_list.map(faculty => {
+                    if(faculty._id == article.student.faculty._id.toString()){
+                        faculty.contributors.push(article.student._id.toString())
+                    }
+                })
+            })
+        } else {
+            article_list.map(article =>{
+                faculty_list.map(faculty => {
+                    if(faculty._id == article.student.faculty._id.toString() && magazine_id == article.magazine.toString()){
+                        faculty.contributors.push(article.student._id.toString())
+                    }
+                })
+            })
+        }
+
+
+
+        faculty_list.map(faculty => {
+            faculty.contributors = [...new Set(faculty.contributors)]
+            faculty.contributors = faculty.contributors.length
+        })
+        console.log(faculty_list);
+        return faculty_list;
     },
     async StatisticalForContributeOfYearOfGuest(faculty_id){
         const magazine_list = await MagazineService.GetMagazineListForAdmin()
@@ -175,8 +207,9 @@ const ArticleService = {
 
         try {
             let article_list = await ArticleRepository.GetAllArticleMagazine(magazine_id)
+            console.log(article_list);
             article_list = article_list.filter(article => {
-                if (article.student.faculty.toString() === faculty_id) {
+                if (article.student.faculty._id.toString() === faculty_id) {
                     const submit_date = [
                         String(article.createdAt.getDate()).padStart(2, '0'),
                         String(article.createdAt.getMonth() + 1).padStart(2, '0'),
@@ -192,6 +225,8 @@ const ArticleService = {
                     return true
                 }
             })
+
+            console.log(article_list);
 
             return article_list
         } catch (error) {
