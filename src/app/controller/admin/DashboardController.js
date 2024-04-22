@@ -34,7 +34,6 @@ const DashboardController = {
     },
     async StatisticalExceptionComment(req, res){
         const {magazine_id} = req.params
-      
         const article_without_comment_quantity = await CommentService.ArticleWithoutCommentQuantity(magazine_id)
         const article_not_comment_after_14_day_quantity = await CommentService.ArticleWithoutCommentAfater14Quantity(magazine_id)
         return res.status(200).json({code:StatusCode.OK, article_without_comment_quantity, article_not_comment_after_14_day_quantity})

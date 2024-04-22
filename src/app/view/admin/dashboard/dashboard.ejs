@@ -91,6 +91,18 @@
         </div>
         <div class="col-sm-12 col-xl-6">
             <div class="shadow text-center rounded p-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="input_magazine_percentage_contribute" aria-label="Floating label select example">
+                        <option selected value="all">All</option>
+                        <% data.magazine_list.map( magazine => { %>
+                            <option value="<%= magazine._id %>">
+                                <%= magazine.title + ' ' %>
+                                (<%= magazine.start_academic_year + '-' + magazine.end_academic_year %>)
+                            </option>
+                        <% }) %>
+                    </select>
+                    <label for="input_magazine_comment">Magazine Filter</label>
+                </div>
                 <%- include('./partials/doughnut-chart', {chart: {name: 'Percentage of contributions', id:'percentage_contributions'} }) %>
             </div>
         </div>

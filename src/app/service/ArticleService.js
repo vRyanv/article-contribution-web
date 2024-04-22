@@ -117,15 +117,16 @@ const ArticleService = {
                 return StatusCode.BAD_REQUEST
             }
         }
-
         const statistical_contribute_faculty_data = []
-
+        console.log(article_list)
         faculty_list.map(faculty => {
             const article_belong_faculty = article_list.filter(article => {
-                return article.student.faculty.toString() === faculty._id.toString()
+                return article.student.faculty._id.toString() === faculty._id.toString()
             })
+  
             statistical_contribute_faculty_data.push({faculty_name: faculty.name, article_quantity: article_belong_faculty.length})
         })
+        console.log(statistical_contribute_faculty_data)
         return statistical_contribute_faculty_data
     },
     async GetAllContributeForMarketingManager() {

@@ -83,7 +83,7 @@ $(document).ready(function () {
                     .then((response) => {
                         setTimeout(() => {
                             const {statistical_contribute_faculty_data} = response
-                            DashboardController.RenderContributeFacultyAndPercentageChart(statistical_contribute_faculty_data)
+                            DashboardController.RenderContributeFacultyChart(statistical_contribute_faculty_data)
                             Loading(false)
                         }, 1500)
                     })
@@ -124,8 +124,25 @@ $(document).ready(function () {
                     console.log(error);
                 })
             })
+
+            $('#input_magazine_percentage_contribute').change(function(){
+                const magazine_id = $(this).val()
+                Loading(true)
+                DashboardController.GetStatisticalContributionFaculties(magazine_id)
+                .then((response) => {
+                    console.log(response);
+                    setTimeout(() => {
+                        const {statistical_contribute_faculty_data} = response
+                    
+                        DashboardController.RenderPercentageChart(statistical_contribute_faculty_data)
+                        Loading(false)
+                    }, 1500)
+                }).catch(error=>{
+                    console.log(error);
+                })
+            })
         },
-        RenderContributeFacultyAndPercentageChart(statistical) {
+        RenderContributeFacultyChart(statistical) {
             let contribute_faculty_labels = []
             let contribute_faculty_data = []
             statistical.map(data => {
@@ -143,6 +160,8 @@ $(document).ready(function () {
             }
             DashboardController.contribution_faculties_chart.data = data_chart
             DashboardController.contribution_faculties_chart.update()
+        },
+        RenderPercentageChart(statistical){
             let percentage_contribute_faculty_labels = []
             let percentage_contribute_faculty_data = []
             let total = 0
@@ -307,7 +326,8 @@ $(document).ready(function () {
                 .then((results) => {
                     setTimeout(() => {
                         const {statistical_contribute_faculty_data} = results[0]
-                        DashboardController.RenderContributeFacultyAndPercentageChart(statistical_contribute_faculty_data)
+                        DashboardController.RenderContributeFacultyChart(statistical_contribute_faculty_data)
+                        DashboardController.RenderPercentageChart(statistical_contribute_faculty_data)
 
                         const {statistical_Contribute_year_data} = results[1]
                         DashboardController.RenderContributeYearChart(statistical_Contribute_year_data)
