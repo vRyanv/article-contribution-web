@@ -1,0 +1,33 @@
+<div class="table-responsive mt-3">
+    <table class="table table-hover" style="text-align: center;">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% faculty_list.map((faculty, index) => { %>
+            <tr id="<%= faculty._id %>">
+                <td scope="row"><%= index + 1 %></td>
+                <td><%= faculty.name %></td>
+                <td style="vertical-align: middle;">
+                    <div class="btn-group-vertical" role="group">
+                        <button type="button" class="btn btn-warning btn-edit-faculty"
+                                data-faculty-id="<%= faculty._id %>">
+                            <i class="fa-solid fa-pen  me-2"></i>
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-danger btn-delete-faculty"
+                                data-faculty-id="<%= faculty._id %>">
+                            <i class="fa-solid fa-trash  me-2"></i>
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

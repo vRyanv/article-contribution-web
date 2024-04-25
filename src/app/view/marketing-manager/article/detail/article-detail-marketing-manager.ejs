@@ -1,0 +1,135 @@
+<%
+let hidden_final = data.article.magazine.is_final_closure ? 'hidden' : ''
+let hidden_closure = data.article.magazine.is_closure ? 'hidden' : ''
+
+let hidden_closure_final = ''
+if (hidden_final || hidden_closure) {
+    hidden_closure_final = 'hidden'
+}
+%>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12"
+             style="position:sticky; z-index:1000; top: 64px">
+            <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
+                <a href="/marketing-manager/contribution">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
+                </a>
+                <h5 style="text-align: center;">Article Detail</h5>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="container-fluid px-4" style="padding-right: 0!important;padding-left: 0!important;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <div class="row g-4">
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6>Basic Information</h6>
+                                </div>
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6 class="text-end">
+                                        <%
+                                        let style_color = ''
+                                        if (data.article.status === 'ACCEPTED') {
+                                            style_color = 'green'
+                                        } else if (data.article.status === 'REFUSED') {
+                                            style_color = 'red'
+                                        } else {
+                                            style_color = 'dodgerblue'
+                                        }
+                                        %>
+                                        <span style="padding: 0.5rem;background: <%= style_color %>; color: white"
+                                              class="rounded">
+                                            <%= data.article.status %>
+                                        </span>
+                                    </h6>
+                                </div>
+                            </div>
+                            <input type="hidden" value="<%= data.article._id %>" name="article_id" id="article_id">
+                            <label class="form-label title-field mt-3">Magazine</label>
+                            <a href="/marketing-manager/magazine/detail/<%= data.article.magazine._id %>">
+                                <p><%= data.article.magazine.title %>
+                                    <%
+                                    let color = 'green'
+                                    let status = 'opening'
+                                    if (data.article.magazine.is_final_closure) {
+                                        color = 'red'
+                                        status = 'final closure'
+                                    } else if (data.article.magazine.is_closure) {
+                                        color = 'var(--primary)'
+                                        status = 'closure'
+                                    }
+                                    %>
+                                    <span class="rounded"
+                                          style="padding: 0.2rem;background: <%= color %>; color: white">
+                                          <%= status %>
+                                        </span>
+                                </p>
+                            </a>
+
+                            <label class="form-label title-field mt-3">Student</label>
+                            <p><%= data.article.student.full_name + ' (' + data.article.student.email + ')' %>  </p>
+
+                            <label class="form-label title-field mt-3">Title</label>
+                            <p><%= data.article.title %></p>
+
+                            <label class="form-label title-field mt-3">Description</label>
+                            <p><%= data.article.description %></p>
+
+                            <label class="form-label title-field mt-3">Thumbnail</label>
+                            <div>
+                                <img id="thumb_preview"
+                                     class="img-thumbnail"
+                                     src="/my-assets/media/article/<%= data.article.thumbnail %>"
+                                     width="100%" style="display: block; width: 200px; height: 200px;"
+                                     alt="thumbnail">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <div class="row g-4">
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6>Files</h6>
+                                </div>
+                                <div class="col-sm-6 col-xl-6" style="text-align: end">
+                                    <a href="/download/all-files/article/<%= data.article._id %>" download>
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-download me-2"></i>
+                                            Download All
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-sm-12 col-xl-12" style="text-align: end">
+                                    <%- include('./partials/file-table', {files: data.article.files, hidden_final}) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../../partials/view-image-larger-modal') %>
+
+
+<%- contentFor('script') %>
+<script>
+    const article_id = $('#article_id').val()
+    //view avatar larger
+    $('#thumb_preview').click(function () {
+        $('#large_image').attr('src', $(this).attr('src'))
+        $('#btn_open_view_image_larger_modal').click()
+    })
+
+</script>
+
+<%- contentFor('style') %>
+<style>
+    #thumb_preview:hover {
+        cursor: zoom-in;
+    }
+</style>

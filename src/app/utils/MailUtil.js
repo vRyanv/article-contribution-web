@@ -13,13 +13,15 @@ let transporter = nodemailer.createTransport({
         rejectUnauthorized: false
     }
 });
-
-module.exports = async (from_mail, to_mail, subject, content) => {
-    await transporter.sendMail({
-        from: from_mail,
-        to: to_mail,
-        subject: subject,
-        html: content,
-        amp: content,
-    })
+const MailUtil = {
+    async Send(from_mail, to_mail, subject, content){
+        return await transporter.sendMail({
+            from: from_mail,
+            to: to_mail,
+            subject: subject,
+            html: content,
+            amp: content,
+        })
+    }
 }
+module.exports = MailUtil

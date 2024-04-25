@@ -1,0 +1,28 @@
+<button type="button" hidden class="btn btn-primary" id="btn_open_forgot_pass_modal" data-bs-toggle="modal"
+        data-bs-target="#forgot_pass_modal">
+</button>
+<div class="modal fade" id="forgot_pass_modal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+                <h5 class="modal-title" >Forgot Password</h5>
+            </div>
+            <form id="forgot_pass_form">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="input_forgot_email" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-arrow-right me-2"></i>
+                        Continue</button>
+                    <button type="button" class="btn btn-secondary" id="btn_close_article_files_modal"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

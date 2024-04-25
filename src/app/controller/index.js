@@ -1,19 +1,48 @@
-const UserController = require('./UserController')
-const MagazineController = require('./MagazineController')
+//admin controller
+const MagazineController = require('./admin/MagazineController')
+const AccountController = require('./admin/AccountController')
+const DashboardController = require('./admin/DashboardController')
+const FacultyController = require('./admin/FacultyController')
+
+//student controller
+const ArticleStudentController = require('./student/ArticleStudentController')
+const MagazineStudentController = require('./student/MagazineStudentController')
+
+//coordinator
+const ArticleCoordinatorController = require('./coordinator/ArticleCoordinatorController')
+const MagazineCoordinatorController = require('./coordinator/MagazineCoordinatorController')
+
+//marketing manager
+const ArticleMarketingManagerController = require('./marketing-manager/ArticleMarketingManagerController')
+const MagazineMarketingManagerController = require('./marketing-manager/MagazineMarketingManagerController')
+
+//general
+const DownloadFileController = require('./DownloadFileController')
+const ProfileController = require('./ProfileController')
 const ClientController = require('./ClientController')
-const ArticleController = require('./ArticleController')
-const FeedBackController = require('./FeedBackController')
-const FacultyController = require('./FacultyController')
-const AdminController = require('./AdminController')
 const SecurityController = require('./SecurityController')
+const CommentController = require('./CommentController')
+const ChatController = require('./ChatController')
+const GuestController = require('./GuestController')
+const TwoFactorAuthController = require('./TwoFactorAuthController')
 
 module.exports = {
-    UserController,
-    MagazineController,
+    TwoFactorAuthController,
+    ChatController,
+    GuestController,
+    ArticleMarketingManagerController,
+    MagazineMarketingManagerController,
+    ArticleStudentController,
+    MagazineStudentController,
     ClientController,
-    ArticleController,
-    FeedBackController,
-    FacultyController,
+    DashboardController,
     SecurityController,
-    AdminController
+    MagazineController,
+    FacultyController,
+    AccountController,
+    DownloadFileController,
+    CommentController,
+    ArticleCoordinatorController,
+    ProfileController,
+    MagazineCoordinatorController
 }

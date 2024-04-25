@@ -1,0 +1,116 @@
+<%
+    let display = ''
+    if(data.magazine.is_closure || data.magazine.is_final_closure){
+        display = 'hidden'
+    }
+%>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12"
+             style="position:sticky; z-index:1000; top: 64px">
+            <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
+                <a href="/student/magazine">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
+                </a>
+                <h5 style="text-align: center;">Magazine Detail</h5>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="container-fluid px-4" style="padding-right: 0!important;padding-left: 0!important;">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <div class="row g-4">
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6>Magazine Information</h6>
+                                </div>
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6 class="text-end">
+                                        <% if(data.magazine.is_final_closure){ %>
+                                            <span style="padding: 0.5rem;background: red; color: white"
+                                                  class="rounded">final closure
+                                                </span>
+                                        <% } else if(data.magazine.is_closure){ %>
+                                            <span style="padding: 0.5rem;background: var(--primary); color: white"
+                                                  class="rounded">closure
+                                                </span>
+                                        <% } else { %>
+                                            <span style="padding: 0.5rem;background: green; color: white"
+                                                  class="rounded">Opening
+                                                </span>
+                                        <% } %>
+                                    </h6>
+                                </div>
+                            </div>
+                            <label class="col-form-label title-field">Academic Year</label>
+                            <p><%= data.magazine.start_academic_year + ' - ' + data.magazine.end_academic_year %></p>
+
+                            <label class="col-form-label title-field mt-3">Title</label>
+                            <p><%= data.magazine.title %></p>
+
+                            <label class="col-form-label title-field mt-3">Closure Date</label>
+                            <p>
+                                <%=
+                                [
+                                    String(data.magazine.closure_date.getMonth() + 1).padStart(2, '0'),
+                                    String(data.magazine.closure_date.getDate()).padStart(2, '0'),
+                                    data.magazine.closure_date.getFullYear()
+                                ].join('-')
+                                %>
+                            </p>
+
+                            <label class="col-form-label title-field mt-3">Final Closure Date</label>
+                            <p>
+                                <%=
+                                [
+                                    String(data.magazine.final_closure_date.getMonth() + 1).padStart(2, '0'),
+                                    String(data.magazine.final_closure_date.getDate()).padStart(2, '0'),
+                                    data.magazine.final_closure_date.getFullYear()
+                                ].join('-')
+                                %>
+                            </p>
+
+                            <label class="col-form-label title-field mt-3">Description</label>
+                            <p><%= data.magazine.description %></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="shadow rounded h-100 p-4">
+                            <div class="row g-4">
+                                <div class="col-sm-6 col-xl-6">
+                                    <h6>Article Contributed</h6>
+                                </div>
+                                <div class="col-sm-6 col-xl-6" style="text-align: end">
+                                    <button <%=  display %>
+                                            class="btn btn-primary"
+                                            type="button"
+                                            id="btn_contribute_article">
+                                        <i class="fa-solid fa-hand-holding-heart me-2"></i>
+                                        Contribute
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 col-xl-12" style="text-align: end">
+                                    <%- include('./partials/contribute-table') %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('./partials/article-form-modal') %>
+
+<%- contentFor('script') %>
+<script src="/my-assets/js/lib/dropzone-min.js"></script>
+<script src="/my-assets/js/student/article-controller.js"></script>
+<script>
+    $('#btn_term_privacy').click(function (){
+        window.open('/term-and-privacy')
+    })
+</script>
+
+<%- contentFor('style') %>
+<link href="/my-assets/css/dropzone.css" rel="stylesheet" type="text/css"/>
+

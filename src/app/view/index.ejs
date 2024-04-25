@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/my-assets/media/decoration/blog.svg">
+    <title>UMagazine</title>
+    <style>
+        body {
+            background-image: url(/my-assets/media/decoration/bg-article-contribute.svg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: fixed;
+            background-position: left;
+        }
+
+        .welcome{
+            height: 40%;
+            width: 70%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.14);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 1);
+        }
+        .title{
+            font-size: 4rem;
+            text-align: center;
+            font-family: sans-serif;
+            margin-top: 3rem;
+            color: orangered;
+            font-weight: bolder;
+        }
+
+        .sub-title{
+            color: white;
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            font-weight: bolder;
+            text-shadow: 2px 3px 1px black;
+        }
+
+        .my-button{
+            font-family: sans-serif;
+            margin-top: 4rem;
+            color: white;
+            font-size: x-large
+        }
+
+        .help{
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+
+    </style>
+
+    <link rel="stylesheet" href="/my-assets/css/text-animation.css">
+</head>
+<%- include('./partials/style-part') %>
+
+<body class="h-100 w-100">
+<div class="position-fixed welcome">
+    <h1 class="title animate-character">Welcome!</h1>
+    <p class="sub-title">Contribute articles to your faculty</p>
+    <a href="/security/sign-in">
+        <button class="btn btn-warning my-button">
+            <i class="fas fa-sign-in-alt me-2"></i> JOIN WITH US
+        </button>
+    </a>
+</div>
+<a href="/help-center" class="help">
+    <button class="btn btn-info">
+        <i class="fas fa-question-circle me-2"></i> HELP CENTER
+    </button>
+</a>
+</body>
+</html>

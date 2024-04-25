@@ -1,3 +1,4 @@
 module.exports = {
-    PRODUCT_STORAGE_PATH: 'src/public/assets/media/file/',
+    ARTICLE_STORAGE_PATH: 'src/public/my-assets/media/article/',
+    AVATAR_STORAGE_PATH: 'src/public/my-assets/media/images/avatar/',
 }

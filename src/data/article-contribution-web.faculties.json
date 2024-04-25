@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "65e2998d25c22c339a07ec88"
+  },
+  "name": "Information Technology",
+  "createdAt": {
+    "$date": "2024-03-02T03:14:21.466Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-04T09:41:46.967Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e2999925c22c339a07ec8b"
+  },
+  "name": "Marketing",
+  "createdAt": {
+    "$date": "2024-03-02T03:14:33.642Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-07T01:39:10.761Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e71d65a3ff43464c586296"
+  },
+  "name": "Other",
+  "createdAt": {
+    "$date": "2024-03-05T13:25:57.565Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-06T02:52:18.175Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65e91ab1ca4fe3dc439a76e1"
+  },
+  "name": "Design",
+  "createdAt": {
+    "$date": "2024-03-07T01:38:57.147Z"
+  },
+  "updatedAt": {
+    "$date": "2024-03-07T01:38:57.147Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,186 @@
+<div class="container-fluid pt-4 px-4">
+    <form id="account_form" enctype="multipart/form-data">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-12"
+                 style="position:sticky; z-index:1000; top: 64px">
+                <div class="d-flex p-4 shadow rounded justify-content-between align-items-end bg-white">
+                    <a href="/admin/account">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-chevron-left"></i></button>
+                    </a>
+                    <h5 style="text-align: center;">Edit Account</h5>
+                    <button class="btn btn-primary" id="btn_edit_account">
+                        <i class="fa-solid fa-check me-2"></i>
+                        Update
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-12">
+                <div class="container-fluid pt-4 px-4" style="padding-right: 0!important;padding-left: 0!important;">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="shadow rounded h-100 p-4">
+                                <h6>Individual Information</h6>
+                                <label for="email" class="col-form-label title-field">Email</label>
+                                <input value="<%= data.account.email %>"
+                                       type="text"
+                                       name="email"
+                                       class="form-control"
+                                       readonly
+                                       required>
+
+                                <label for="password" class="col-form-label title-field mt-3">Password</label>
+                                <input type="password"
+                                       class="form-control"
+                                       id="password"
+                                       autocomplete
+                                       name="password">
+
+                                <label for="full_name" class="col-form-label title-field mt-3">Full Name</label>
+                                <input value="<%= data.account.full_name %>"
+                                       type="text"
+                                       class="form-control"
+                                       id="full_name"
+                                       name="full_name"
+                                       required>
+
+                                <label for="gender" class="col-form-label title-field mt-3">Gender</label>
+                                <select name="gender" id="gender" class="form-select" required>
+                                    <option value="Male"
+                                            <%= data.account.gender === 'Male' ? 'selected' : '' %> >
+                                        Male
+                                    </option>
+                                    <option value="Female"
+                                            <%= data.account.gender === 'Female' ? 'selected' : '' %> >
+                                        Female
+                                    </option>
+                                </select>
+
+                                <label for="birth_date" class="col-form-label title-field mt-3">Birth Date</label>
+                                <input value="<%= data.account.birth_date %>"
+                                       type="date"
+                                       class="form-control"
+                                       id="birth_date"
+                                       name="birth_date"
+                                       required>
+
+                                <label for="phone" class="col-form-label title-field mt-3">Phone</label>
+                                <input value="<%= data.account.phone %>"
+                                       type="text"
+                                       class="form-control"
+                                       id="phone"
+                                       name="phone"
+                                       required>
+
+                                <label class="col-form-label title-field mt-3">Avatar</label>
+                                <input type="file" class="form-control" id="avatar" hidden name="avatar">
+                                <img class="img-thumbnail d-block"
+                                     id="avatar_preview"
+                                     src="/my-assets/media/images/avatar/<%= data.account.avatar %>"
+                                     alt="avatar" width="30%">
+                                <button type="button" class="btn btn-primary d-block mt-5" id="btn_open_upload_file">
+                                    <i class="fa-solid fa-upload me-2"></i>
+                                    Upload
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="shadow rounded h-100 p-4">
+                                <h6>Academic Information</h6>
+                                <label for="role" class="col-form-label title-field">Role</label>
+                                <select name="role" id="role" class="form-select" required>
+                                    <% data.role_list.map(role => { %>
+                                        <option value="<%= role %>" <%= data.account.role === role ? 'selected' : '' %> >
+                                            <%= role %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+
+                                <label for="faculty" class="col-form-label mt-3 title-field">Faculty</label>
+                                <select name="faculty" id="faculty" class="form-select" required>
+                                    <% data.faculty_list.map(faculty => { %>
+                                        <option value="<%= faculty._id %>"
+                                                <%= data.account.faculty._id.toString() === faculty._id.toString() ? 'selected' : '' %> >
+                                            <%= faculty.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+
+                                <label for="start_year" class="col-form-label mt-3 title-field">Start Year</label>
+                                <input value="<%= data.account.start_year %>"
+                                       type="text"
+                                       class="form-control"
+                                       id="start_year"
+                                       name="start_year"
+                                       required>
+
+                                <label for="end_year" class="col-form-label mt-3 title-field">End Year</label>
+                                <input value="<%= data.account.end_year %>"
+                                       type="text"
+                                       class="form-control"
+                                       id="end_year"
+                                       name="end_year"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- contentFor('script') %>
+<script>
+    $('#btn_open_upload_file').click(function () {
+        $('#avatar').click()
+    })
+
+    $('#avatar').change(function () {
+        const option = {
+            input_id: 'avatar',
+            preview_id: 'avatar_preview',
+            path_image_default: '/my-assets/media/images/avatar/user.svg',
+        }
+        const mime_type_allow = ['image/png', 'image/jpeg', 'image/jpg']
+        const result = Utils.PreviewImage(option, mime_type_allow)
+        if (!result) {
+            Alert.Show('warning', 'Only accept file type: png, jpp, jpeg')
+        }
+    })
+
+    $('#account_form').submit(function (e) {
+        e.preventDefault()
+        if($('#password').val().length > 0 && $('#password').val().length < 8){
+            Alert.Show('warning', 'Password must be greater than or equal 8 character')
+            return
+        }
+
+        const account_data = new FormData(this)
+        account_data.set('birth_date', Utils.ConvertDate($('#birth_date').val(), 'MM-dd-yyyy'))
+        $.ajax({
+            url: '/admin/account/update',
+            type: 'put',
+            data: account_data,
+            processData: false,
+            contentType: false,
+            beforeSend: Loading(true),
+            success: (response) => {
+                setTimeout(() => {
+                    if (response.code === 202) {
+                        location.href = '/admin/account'
+                    } else {
+                        Alert.Show('warning', response.message)
+                    }
+                    Loading(false)
+                }, 1500)
+            },
+            error: () => {
+                Alert.Show('danger', 'Something went wrong!')
+            }
+        })
+    })
+</script>
+
+
+<%- contentFor('style') %>

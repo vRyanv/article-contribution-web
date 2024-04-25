@@ -1,0 +1,49 @@
+<div class="table-responsive mt-3">
+    <table class="table table-hover" style="text-align: center;">
+        <thead>
+        <tr>
+            <th scope="col">Thumbnail</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Submit Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% data.contribute_list.map((contribute) => { %>
+            <tr class="contribute-row" data-contribute-id="<%= contribute._id %>">
+                <td>
+                    <img style="max-width: 5rem"
+                         src="/my-assets/media/article/<%= contribute.thumbnail %>"
+                         alt="thumbnail">
+                </td>
+                <td><%= contribute.title %></td>
+                <td style="vertical-align: middle;">
+                    <%
+                        let status_color = ''
+                        if (contribute.status === 'QUEUE') {
+                            status_color = 'dodgerblue'
+                        } else if (contribute.status === 'ACCEPTED') {
+                            status_color = 'green'
+                        } else if (contribute.status === 'REFUSED') {
+                            status_color = 'red'
+                        }
+                    %>
+                    <span class="rounded"
+                          style="padding: .5rem;color: white;background-color: <%= status_color %>"><%= contribute.status %>
+                </span>
+                </td>
+                <td>
+                    <%
+                        const submit_date = [
+                            contribute.createdAt.getMonth() + 1,
+                            contribute.createdAt.getDate(),
+                            contribute.createdAt.getFullYear()
+                        ].join('-')
+                    %>
+                    <%= submit_date %>
+                </td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,310 @@
+[{
+  "_id": {
+    "$oid": "65e2d5f2e8f23951ca037178"
+  },
+  "email": "openai1610@gmail.com",
+  "password": "$2b$10$v4ynbn6mrWmFAA/zOU9Bhu8LPf2PQeqPMqseGuMLgFRR0S1DZ2hte",
+  "avatar": "170936945459855E7224E-6FC9-4D0B-9CCD-528F8F445D21 - Trang Háº¡nh.jpeg",
+  "full_name": "Thuy Duong",
+  "birth_date": "03-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "ADMIN",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e71d65a3ff43464c586296"
+  },
+  "deleted": false,
+  "createdAt": {
+    "$date": "2024-03-02T07:32:02.629Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-09T03:18:23.913Z"
+  },
+  "__v": 0,
+  "is_2fa_enable": false,
+  "secret": "PB5QCR3SEBGHQNKZ",
+  "OTP": ""
+},
+{
+  "_id": {
+    "$oid": "660b5c6013a45fd900779b28"
+  },
+  "email": "khangnngcc200043@fpt.edu.vn",
+  "password": "$2b$10$pXRkq4tVE4MsCcfr1R6WR.JM.zh2DqtoWoP/PAsrkBPkpdwjT2x3G",
+  "avatar": "user.svg",
+  "full_name": "infomation technology coordinator",
+  "birth_date": "04-02-2024",
+  "phone": "0123612312",
+  "gender": "Male",
+  "role": "COORDINATOR",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2998d25c22c339a07ec88"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "FMLUS2KEFAICWUTS",
+  "createdAt": {
+    "$date": "2024-04-02T01:16:16.943Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:16:45.763Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5cb313a45fd900779b37"
+  },
+  "email": "khangok1610@gmail.com",
+  "password": "$2b$10$tun.Bl/2RBKwRHZD4eSL9.WKuQ9as1Nev.wuEx8oZcWAVtG3eW8uS",
+  "avatar": "user.svg",
+  "full_name": "design coordinator",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "COORDINATOR",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e91ab1ca4fe3dc439a76e1"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "JBMF66YDMN3BINSZ",
+  "createdAt": {
+    "$date": "2024-04-02T01:17:39.991Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:17:39.991Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5ce813a45fd900779b3d"
+  },
+  "email": "codezonevv@gmail.com",
+  "password": "$2b$10$u6ctoFTYWqFeOMEgNH0xh.yWe7BnLUwJbKSMoCLLJjj/B/EUL9roO",
+  "avatar": "user.svg",
+  "full_name": "marketing coodinator",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "COORDINATOR",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2999925c22c339a07ec8b"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "BJEV4CJIMNWQGSZY",
+  "createdAt": {
+    "$date": "2024-04-02T01:18:32.541Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:18:32.541Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5d1513a45fd900779b43"
+  },
+  "email": "it1@gmail.com",
+  "password": "$2b$10$/hc7aZMzrbWbs1j6LHqAwuZo4bZOPbL62M1rImM52ol1coGjybwtC",
+  "avatar": "user.svg",
+  "full_name": "student IT 1",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "STUDENT",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2998d25c22c339a07ec88"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "K4IX6CJ5IETS47BY",
+  "createdAt": {
+    "$date": "2024-04-02T01:19:17.573Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:19:17.573Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5d3113a45fd900779b49"
+  },
+  "email": "it2@gmail.com",
+  "password": "$2b$10$.ULnLe44CFS7jDxiifr2uuzjuLb07mCi9YPC3mhyGY4NVexIPid2e",
+  "avatar": "user.svg",
+  "full_name": "student IT 2",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "STUDENT",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2998d25c22c339a07ec88"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "OUAAWTLEJAYU4RZ5",
+  "createdAt": {
+    "$date": "2024-04-02T01:19:45.165Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:19:45.165Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5d4f13a45fd900779b4f"
+  },
+  "email": "design1@gmail.com",
+  "password": "$2b$10$A9ucrvj/VuZl8Ga0N0jeNex6lEEMTpWHcjwFEEnscseqnWbvUmR6m",
+  "avatar": "user.svg",
+  "full_name": "student design 1",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "STUDENT",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e91ab1ca4fe3dc439a76e1"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "CVKUSFJWKRVVALBS",
+  "createdAt": {
+    "$date": "2024-04-02T01:20:15.306Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-04T09:42:04.640Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5d7213a45fd900779b55"
+  },
+  "email": "guest1@gmail.com",
+  "password": "$2b$10$klk/co9HX8eXRcFEiiAqv.FT3invGtxbHLb4dJl3.eBgAGE1U6RsO",
+  "avatar": "user.svg",
+  "full_name": "guest IT 1",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "GUEST",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2998d25c22c339a07ec88"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "OV7GW4AVFQKUQ53Q",
+  "createdAt": {
+    "$date": "2024-04-02T01:20:50.374Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:20:50.374Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660b5d9813a45fd900779b5b"
+  },
+  "email": "guestdesign@gmail.com",
+  "password": "$2b$10$xKUKaUXGz70zy5ja7s8H0.6pgFgoRMnNyIno/SUIwLfBm9HZYDTa2",
+  "avatar": "user.svg",
+  "full_name": "guest design",
+  "birth_date": "04-02-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "GUEST",
+  "start_year": "2002",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e91ab1ca4fe3dc439a76e1"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "GQIRMCYKMUWW27SK",
+  "createdAt": {
+    "$date": "2024-04-02T01:21:28.850Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-02T01:21:28.850Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "660e04f1fb6c7a54d4b0fdec"
+  },
+  "email": "manager@gmail.com",
+  "password": "$2b$10$yIcDCW1WiE7tuM2Lz.QbM..b0/jSs.K7wpb2McOzHBW1hnvrL0k.S",
+  "avatar": "user.svg",
+  "full_name": "manager",
+  "birth_date": "04-04-2024",
+  "phone": "0374463592",
+  "gender": "Male",
+  "role": "MARKETING MANAGER",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e71d65a3ff43464c586296"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "IAYTQV22I4QTGCL3",
+  "createdAt": {
+    "$date": "2024-04-04T01:40:01.280Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-04T01:40:01.280Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6629a682b3f33e0385d08258"
+  },
+  "email": "marketing1@gmail.com",
+  "password": "$2b$10$GyIQOzU5dDUYgyl50XYsduirLf8i0tXCCij1PvZ6KQg//o0XhVPty",
+  "avatar": "user.svg",
+  "full_name": "student marketing 1",
+  "birth_date": "04-25-2024",
+  "phone": "0374463592",
+  "gender": "Female",
+  "role": "STUDENT",
+  "start_year": "2021",
+  "end_year": "2023",
+  "faculty": {
+    "$oid": "65e2999925c22c339a07ec8b"
+  },
+  "deleted": false,
+  "is_2fa_enable": false,
+  "secret": "LYKREMTNLFDXSNTT",
+  "OTP": "",
+  "createdAt": {
+    "$date": "2024-04-25T00:40:34.233Z"
+  },
+  "updatedAt": {
+    "$date": "2024-04-25T00:40:34.233Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,31 @@
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="shadow text-center rounded p-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="input_magazine" aria-label="Floating label select example">
+                        <option selected value="all">All</option>
+                        <% data.magazine_list.map( magazine => { %>
+                            <option value="<%= magazine._id %>">
+                                <%= magazine.title + ' ' %>
+                                (<%= magazine.start_academic_year + '-' + magazine.end_academic_year %>)
+                            </option>
+                        <% }) %>
+                    </select>
+                    <label for="input_magazine">Academic Year Filter</label>
+                </div>
+                <%- include('./partials/bar-chart', {chart: {name: 'Contribution Of Faculty', id:'contribution_faculties_chart'} }) %>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="shadow text-center rounded p-4">
+                <%- include('./partials/bar-chart', {chart: {name: 'Contribution of Years', id:'contribution_year_chart'} }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('script') %>
+<script src="/my-assets/js/guest/dashboard.js"></script>
+
+<%- contentFor('style') %>

@@ -1,0 +1,18 @@
+<li class="person rounded"
+    data-user-id="<%= user._id %>"
+    data-user-avatar="<%= user.avatar %>"
+    data-user-full-name="<%= user.full_name %>">
+    <div class="user">
+        <img src="/my-assets/media/images/avatar/<%= user.avatar %>"
+             alt="avatar">
+    </div>
+    <p class="name-time">
+        <div class="name me-3 text-truncate align-middle "style="max-width: 150px;display: inline-block;"><%= user.full_name %></div>
+        <span class="time">
+          <span id="has_mess_user_id_<%= user._id %>"
+                class="visually-hidden position-absolute align-middle start-100 p-2 bg-danger border border-light rounded-circle"
+                style="transform: translateX(-2rem);">
+          </span>
+        </span>
+    </p>
+</li>
